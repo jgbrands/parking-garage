@@ -1,13 +1,13 @@
 package simulator;
 
+import gui.SimulatorView;
+
 import java.util.Random;
 
 public class Simulator {
-
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
-	
-	
+
 	private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
@@ -98,7 +98,7 @@ public class Simulator {
         addArrivingCars(numberOfCars, PASS);    	
     }
 
-    private void carsEntering(CarQueue queue){
+	private void carsEntering(CarQueue queue){
         int i=0;
         // Remove car from the front of the queue and assign to a parking space.
     	while (queue.carsInQueue()>0 && 
