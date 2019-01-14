@@ -1,6 +1,6 @@
 package simulator;
 
-import gui.SimulatorView;
+import gui.simulator.SimulatorView;
 
 import java.util.Random;
 
