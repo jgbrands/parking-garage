@@ -1,10 +1,6 @@
 # IntelliJ
-.idea
-<<<<<<< HEAD
-.iml
-=======
+.ideag=
 *.iml
->>>>>>> bf5a6f957a98a44bbbcfed20a96bfa6bc8e3b754
 
 # Maven build directory
 target

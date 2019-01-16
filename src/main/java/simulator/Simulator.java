@@ -1,23 +1,18 @@
 package simulator;
 
-import gui.simulator.SimulatorView;
-
 import java.util.Random;
 
 public class Simulator {
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
 
-	private CarQueue entranceCarQueue;
-    private CarQueue entrancePassQueue;
+	private CarQueue entranceQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
-    private int day = 0;
-    private int hour = 0;
-    private int minute = 0;
+    private Time simulationTime;
 
-    private int tickPause = 100;
+    private int day = 0;
 
     int weekDayArrivals= 100; // average number of arriving cars per hour
     int weekendArrivals = 200; // average number of arriving cars per hour
@@ -29,51 +24,28 @@ public class Simulator {
     int exitSpeed = 5; // number of cars that can leave per minute
 
     public Simulator() {
-        entranceCarQueue = new CarQueue();
-        entrancePassQueue = new CarQueue();
+        entranceQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
     }
 
     public void run() {
-        for (int i = 0; i < 10000; i++) {
-            tick();
+    	this.simulationTime = new Time(1);
+	    this.simulationTime.onTick(this::onTick);
+
+        while (true) {
+        	this.simulationTime.tick();
         }
     }
 
-    private void tick() {
-    	advanceTime();
-    	handleExit();
-    	// Pause.
-        try {
-            Thread.sleep(tickPause);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    	handleEntrance();
-    }
-
-    private void advanceTime(){
-        // Advance the time by one minute.
-        minute++;
-        while (minute > 59) {
-            minute -= 60;
-            hour++;
-        }
-        while (hour > 23) {
-            hour -= 24;
-            day++;
-        }
-        while (day > 6) {
-            day -= 7;
-        }
-
+    private void onTick() {
+	    handleExit();
+	    handleEntrance();
     }
 
     private void handleEntrance() {
     	carsArriving();
-    	carsEntering(entrancePassQueue);
-    	carsEntering(entranceCarQueue);  	
+    	carsEntering(entranceQueue);
     }
     
     private void handleExit() {
@@ -136,14 +108,9 @@ public class Simulator {
     	switch (type) {
     	case AD_HOC: 
             for (int i = 0; i < numberOfCars; i++) {
-            	entranceCarQueue.addCar(new AdHocCar());
+            	entranceQueue.addCar(new AdHocCar());
             }
             break;
-    	case PASS:
-            for (int i = 0; i < numberOfCars; i++) {
-            	entrancePassQueue.addCar(new ParkingPassCar());
-            }
-            break;	            
     	}
     }
     
