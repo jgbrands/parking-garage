@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimulatorView extends JFrame {
-	private CarParkView carParkView;
 	private int numberOfFloors;
 	private int numberOfRows;
 	private int numberOfPlaces;
@@ -21,8 +20,6 @@ public class SimulatorView extends JFrame {
 		this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
 		cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
-		carParkView = new CarParkView(this);
-
 		Container contentPane = getContentPane();
 		contentPane.add(carParkView, BorderLayout.CENTER);
 		pack();
@@ -32,7 +29,6 @@ public class SimulatorView extends JFrame {
 	}
 
 	public void updateView() {
-		carParkView.updateView();
 	}
 
 	public int getNumberOfFloors() {
@@ -76,10 +72,13 @@ public class SimulatorView extends JFrame {
 		if (!locationIsValid(location)) {
 			return null;
 		}
+
 		Car car = getCarAt(location);
+
 		if (car == null) {
 			return null;
 		}
+
 		cars[location.getFloor()][location.getRow()][location.getPlace()] = null;
 		car.setLocation(null);
 		numberOfOpenSpots++;
@@ -91,9 +90,11 @@ public class SimulatorView extends JFrame {
 			for (int row = 0; row < getNumberOfRows(); row++) {
 				for (int place = 0; place < getNumberOfPlaces(); place++) {
 					Location location = new Location(floor, row, place);
+
 					if (getCarAt(location) == null) {
 						return location;
 					}
+
 				}
 			}
 		}
