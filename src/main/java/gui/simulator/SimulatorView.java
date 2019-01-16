@@ -2,38 +2,16 @@ package gui.simulator;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
 
 public class SimulatorView extends JFrame {
-	private int numberOfFloors;
-	private int numberOfRows;
-	private int numberOfPlaces;
-	private int numberOfOpenSpots;
+	private GridLayout layout;
 
-	public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
-		this.numberOfFloors = numberOfFloors;
-		this.numberOfRows = numberOfRows;
-		this.numberOfPlaces = numberOfPlaces;
-		this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
+	public SimulatorView(int cols){
+		this.layout = new GridLayout(0, cols);
 
-		setVisible(true);
-  }
-  
-	public void updateView() {
+		this.setLayout(layout);
+		this.setBounds(100, 100, 1000, 600);
 	}
-
-	public int getNumberOfFloors() {
-		return numberOfFloors;
-	}
-
-	public int getNumberOfRows() {
-		return numberOfRows;
-	}
-
-	public int getNumberOfPlaces() {
-		return numberOfPlaces;
-	}
-
-	public int getNumberOfOpenSpots(){
-		return numberOfOpenSpots;
-  }
 }
