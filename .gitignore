@@ -1,5 +1,5 @@
 # IntelliJ
-.ideag=
+.idea
 *.iml
 
 # Maven build directory
