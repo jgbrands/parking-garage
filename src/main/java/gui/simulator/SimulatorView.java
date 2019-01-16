@@ -16,13 +16,11 @@ public class SimulatorView extends JFrame {
 		this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
 
 		Container contentPane = getContentPane();
-		contentPane.add(carParkView, BorderLayout.CENTER);
+
 		pack();
 		setVisible(true);
-
-		updateView();
-	}
-
+  }
+  
 	public void updateView() {
 	}
 
