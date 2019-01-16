@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimulatorView extends JFrame {
-	private CarParkView carParkView;
 	private int numberOfFloors;
 	private int numberOfRows;
 	private int numberOfPlaces;
@@ -16,8 +15,6 @@ public class SimulatorView extends JFrame {
 		this.numberOfPlaces = numberOfPlaces;
 		this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
 
-		carParkView = new CarParkView(this);
-
 		Container contentPane = getContentPane();
 		contentPane.add(carParkView, BorderLayout.CENTER);
 		pack();
@@ -27,7 +24,6 @@ public class SimulatorView extends JFrame {
 	}
 
 	public void updateView() {
-		carParkView.updateView();
 	}
 
 	public int getNumberOfFloors() {
