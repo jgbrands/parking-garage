@@ -13,11 +13,8 @@ public class SimulatorView extends JFrame {
 		this.numberOfFloors = numberOfFloors;
 		this.numberOfRows = numberOfRows;
 		this.numberOfPlaces = numberOfPlaces;
-		this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
+		this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
 
-		Container contentPane = getContentPane();
-
-		pack();
 		setVisible(true);
   }
   
@@ -38,5 +35,5 @@ public class SimulatorView extends JFrame {
 
 	public int getNumberOfOpenSpots(){
 		return numberOfOpenSpots;
-	}
+  }
 }
