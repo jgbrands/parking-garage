@@ -1,4 +1,4 @@
-package gui;
+package gui.simulator;
 
 import simulator.Car;
 import simulator.Location;
