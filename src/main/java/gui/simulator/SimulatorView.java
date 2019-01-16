@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimulatorView extends JFrame {
-
 	private int numberOfFloors;
 	private int numberOfRows;
 	private int numberOfPlaces;
@@ -20,7 +19,9 @@ public class SimulatorView extends JFrame {
 
 		pack();
 		setVisible(true);
-
+  }
+  
+	public void updateView() {
 	}
 
 	public int getNumberOfFloors() {
@@ -38,5 +39,4 @@ public class SimulatorView extends JFrame {
 	public int getNumberOfOpenSpots(){
 		return numberOfOpenSpots;
 	}
-
 }
