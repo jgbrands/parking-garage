@@ -1,4 +1,4 @@
-package simulator.data;
+package simulator.family;
 
 import java.util.ArrayList;
 

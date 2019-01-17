@@ -1,15 +1,14 @@
 package simulator;
 
-public class Location {
-
+public class ParkingSpace {
 	private int floor;
 	private int row;
 	private int place;
 
 	/**
-	 * Constructor for objects of class simulator.Location
+	 * Constructor for objects of class simulator.ParkingSpace
 	 */
-	public Location(int floor, int row, int place) {
+	public ParkingSpace(int floor, int row, int place) {
 		this.floor = floor;
 		this.row = row;
 		this.place = place;
@@ -19,8 +18,8 @@ public class Location {
 	 * Implement content equality.
 	 */
 	public boolean equals(Object obj) {
-		if(obj instanceof Location) {
-			Location other = (Location) obj;
+		if(obj instanceof ParkingSpace) {
+			ParkingSpace other = (ParkingSpace) obj;
 			return floor == other.getFloor() && row == other.getRow() && place == other.getPlace();
 		}
 		else {

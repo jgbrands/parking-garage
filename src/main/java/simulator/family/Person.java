@@ -1,4 +1,4 @@
-package simulator.data;
+package simulator.family;
 
 public class Person {
 	private String firstName;
