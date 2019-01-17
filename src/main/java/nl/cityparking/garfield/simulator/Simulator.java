@@ -1,7 +1,7 @@
-package simulator;
+package nl.cityparking.garfield.simulator;
 
-import simulator.config.Configuration;
-import simulator.config.SpawnRatio;
+import nl.cityparking.garfield.simulator.config.Configuration;
+import nl.cityparking.garfield.simulator.config.SpawnRatio;
 
 import java.util.concurrent.ThreadLocalRandom;
 

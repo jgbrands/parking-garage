@@ -1,4 +1,4 @@
-package simulator;
+package nl.cityparking.garfield.simulator;
 
 public class ParkingSpace {
 	private int floor;
@@ -6,7 +6,7 @@ public class ParkingSpace {
 	private int place;
 
 	/**
-	 * Constructor for objects of class simulator.ParkingSpace
+	 * Constructor for objects of class nl.cityparking.garfield.simulator.ParkingSpace
 	 */
 	public ParkingSpace(int floor, int row, int place) {
 		this.floor = floor;

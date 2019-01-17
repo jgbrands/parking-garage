@@ -1,4 +1,4 @@
-package gui.simulator;
+package nl.cityparking.garfield.gui.simulator;
 
 import javax.swing.*;
 import java.awt.*;

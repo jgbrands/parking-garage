@@ -1,4 +1,4 @@
-package simulator;
+package nl.cityparking.garfield.simulator;
 
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -34,7 +34,7 @@ public class Time {
 			this.minutes++;
 
 			// We start with the largest unit (weeks) here, because it is actually the most sensible thing to do.
-			// The parameters of the simulator usually change every week, and since the smaller units depend on actions
+			// The parameters of the nl.cityparking.garfield.simulator usually change every week, and since the smaller units depend on actions
 			// from the larger units we do it this way.
 			if (this.minutes == this.nextWeek) {
 				this.nextWeek += minutesPerWeek;

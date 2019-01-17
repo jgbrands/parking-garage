@@ -1,4 +1,4 @@
-package simulator.config;
+package nl.cityparking.garfield.simulator.config;
 
 import javax.xml.bind.annotation.XmlAttribute;
 

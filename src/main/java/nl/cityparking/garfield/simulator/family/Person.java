@@ -1,4 +1,4 @@
-package simulator.family;
+package nl.cityparking.garfield.simulator.family;
 
 public class Person {
 	private String firstName;

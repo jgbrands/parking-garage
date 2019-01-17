@@ -1,4 +1,4 @@
-package simulator.family;
+package nl.cityparking.garfield.simulator.family;
 
 import java.util.ArrayList;
 

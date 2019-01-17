@@ -1,6 +1,6 @@
-package simulator;
+package nl.cityparking.garfield.simulator;
 
-import simulator.family.Car;
+import nl.cityparking.garfield.simulator.family.Car;
 
 import java.util.LinkedList;
 
