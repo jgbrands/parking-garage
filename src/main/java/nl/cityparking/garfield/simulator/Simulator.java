@@ -35,6 +35,7 @@ public class Simulator implements Runnable {
     }
 
     private void onTick() {
+    	System.out.println("Tick!!");
     }
 
     private void onMinutePassed() {
