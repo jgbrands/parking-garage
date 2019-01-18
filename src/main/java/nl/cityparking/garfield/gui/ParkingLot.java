@@ -1,3 +1,6 @@
+/**
+ * creats the class to draw parking spots
+ */
 package nl.cityparking.garfield.gui;
 
 import javafx.fxml.FXML;
@@ -9,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ParkingLot {
 	@FXML
@@ -19,7 +21,6 @@ public class ParkingLot {
 	private Canvas drawingCanvas;
 
 	private GraphicsContext gc;
-	private int amountSpaces;
 	private ArrayList<String> cars;
 	private Paint paintGreen;
 	private Paint paintRed;
@@ -27,15 +28,17 @@ public class ParkingLot {
 
 
 	@FXML
+	/**
+	 * initialises the whole class.
+	 */
 	private void initialize(){
 		this.paintBlue = Color.BLUE;
 		this.paintGreen = Color.GREEN;
 		this.paintRed = Color.RED;
-		this.amountSpaces = 50;
 		this.cars = new ArrayList<>();
 		this.objects();
 		this.gc  = this.drawingCanvas.getGraphicsContext2D();
-		this.drawSpaces(amountSpaces);
+		this.drawSpaces();
 
 		this.canvasWrapper.widthProperty().addListener((observable, oldValue, newValue) -> {
 			this.updateCanvasSize(newValue.doubleValue(), this.drawingCanvas.getHeight());
@@ -46,13 +49,21 @@ public class ParkingLot {
 		});
 	}
 
+	/**
+	 * Set the size of the screen that must be displayed
+	 * @param width
+	 * @param height
+	 */
 	private void updateCanvasSize(double width, double height) {
 		this.drawingCanvas.setHeight(height);
 		this.drawingCanvas.setWidth(width);
-		drawSpaces(amountSpaces);
+		drawSpaces();
 	}
 
-	private void drawSpaces(int amountSpaces){
+	/**
+	 * draws the parking spots on the screen
+	 */
+	private void drawSpaces(){
 		int i = 0;
 		int y = 0;
 		gc.setStroke(Color.BLACK);
@@ -81,6 +92,10 @@ public class ParkingLot {
 		}
 	}
 
+	/**
+	 * test method to visualise the parking spaces that can be drawn
+	 * this method fills the arraylist
+	 */
 	private void objects(){
 		for(int i = 0; i < 20; i++) {
 			this.cars.add("handicap");
