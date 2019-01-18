@@ -1,7 +1,4 @@
-/**
- * creats the class to draw parking spots
- */
-package nl.cityparking.garfield.gui;
+package nl.cityparking.garfield.gui.simulator;
 
 import javafx.fxml.FXML;
 
@@ -13,6 +10,9 @@ import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
 
+/**
+ * creats the class to draw parking spots
+ */
 public class ParkingLot {
 	@FXML
 	private AnchorPane canvasWrapper;

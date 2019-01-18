@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="canvasWrapper" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.cityparking.garfield.gui.ParkingLot">
+<AnchorPane fx:id="canvasWrapper" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.cityparking.garfield.gui.simulator.ParkingLot">
    <VBox>
       <children>
          <Canvas fx:id="drawingCanvas" height="200.0" width="200.0" VBox.vgrow="ALWAYS" />
