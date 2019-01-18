@@ -22,13 +22,28 @@ public class DistributionChart {
 	private ChartViewer chartViewer;
 	private boolean useRescale = false;
 
+	@FXML
 	public Slider meanSlider;
+
+	@FXML
 	public TextField meanValue;
+
+	@FXML
 	public VBox vbox;
+
+	@FXML
 	public Slider sdSlider;
+
+	@FXML
 	public TextField sdValue;
+
+	@FXML
 	public ToggleGroup scaleFuncGroup;
+
+	@FXML
 	public RadioButton rbScaleFuncNone;
+
+	@FXML
 	public RadioButton rbScaleFuncRescaleLog;
 
 	@FXML
