@@ -1,10 +1,8 @@
 package nl.cityparking.garfield.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.Node;
+import javafx.scene.layout.BorderPane;
 
 /**
  * It is the controller for the view called: primaryView
@@ -12,10 +10,7 @@ import javafx.scene.layout.VBox;
  */
 public class PrimaryView {
 	@FXML
-	private VBox mainAnchor;
-
-	@FXML
-	private VBox secondAnchor;
+	private BorderPane primaryLayout;
 
 	@FXML
 	private void initialize() {
@@ -23,16 +18,21 @@ public class PrimaryView {
 
 	/**
 	 * Sets the main view of the screen (left side)
-	 * @param pane the view you want to insert
+	 * @param node the view you want to insert
 	 */
-	public void setMainView(Pane pane) {
-		mainAnchor.getChildren().add(0, pane);
+	public void setMainView(Node node) {
+		primaryLayout.setCenter(node);
 	}
 
 	/**
 	 * Sets the second view of the screen (right side)
-	 * @param pane the view you want to insert
+	 * @param node the view you want to insert
 	 */
-	public void setSecondView(Pane pane) {
-		secondAnchor.getChildren().add(0, pane);	}
+	public void setSecondView(Node node) {
+		primaryLayout.setRight(node);
+	}
+
+	public void setInfoBar(Node node) {
+		primaryLayout.setBottom(node);
+	}
 }

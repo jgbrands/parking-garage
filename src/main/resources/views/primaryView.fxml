@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.cityparking.garfield.gui.PrimaryView">
-  <columnConstraints>
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="400.0" />
-    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="200.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="1" />
-      <VBox fx:id="mainAnchor" prefHeight="200.0" prefWidth="100.0" />
-      <VBox fx:id="secondAnchor" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" />
-   </children>
-</GridPane>
+
+<BorderPane fx:id="primaryLayout" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.cityparking.garfield.gui.PrimaryView" />

@@ -1,11 +1,13 @@
 package nl.cityparking.garfield.simulator;
 
 public class Time {
+	public static final long DEFAULT_TICK_WAIT = 1000000000;
+
 	private static final long minutesPerHour = 60;
 	private static final long minutesPerDay = 60 * 24;
 	private static final long minutesPerWeek = 60 * 24 * 7;
 
-	private long tickSpeed = 100000000; // How many nanoseconds have to pass before we tick?
+	private long tickSpeed = DEFAULT_TICK_WAIT; // How many nanoseconds have to pass before we tick?
 	private long lastTick = 0;
 
 	private long minutesPerTick;
@@ -92,6 +94,10 @@ public class Time {
 
 	public void onWeekPassed(Runnable f) {
 		this.onWeekFn = f;
+	}
+
+	public long getMinutesPassed() {
+		return this.minutes;
 	}
 
 	/**

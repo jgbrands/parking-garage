@@ -9,9 +9,15 @@ public class SpawnRatio {
 	@XmlAttribute(name = "base")
 	public long base = 5;
 
-	@XmlAttribute(name = "deviationLower")
-	public long min = 2;
+	@XmlAttribute(name = "earlyPeakMean")
+	public double earlyPeakMean = 0.35;
 
-	@XmlAttribute(name = "deviationUpper")
-	public long max = 1;
+	@XmlAttribute(name = "earlyPeakStandardDeviation")
+	public double earlyPeakStandardDeviation = 0.9;
+
+	@XmlAttribute(name = "latePeakMean")
+	public double latePeakMean = 0.7;
+
+	@XmlAttribute(name = "latePeakStandardDeviation")
+	public double latePeakStandardDeviation = 0.85;
 }

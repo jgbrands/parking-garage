@@ -39,25 +39,6 @@ public class ParkingLot {
 		this.objects();
 		this.gc  = this.drawingCanvas.getGraphicsContext2D();
 		this.drawSpaces();
-
-		this.canvasWrapper.widthProperty().addListener((observable, oldValue, newValue) -> {
-			this.updateCanvasSize(newValue.doubleValue(), this.drawingCanvas.getHeight());
-		});
-
-		this.canvasWrapper.heightProperty().addListener((observable, oldValue, newValue) -> {
-			this.updateCanvasSize(this.drawingCanvas.getWidth(), newValue.doubleValue());
-		});
-	}
-
-	/**
-	 * Set the size of the screen that must be displayed
-	 * @param width
-	 * @param height
-	 */
-	private void updateCanvasSize(double width, double height) {
-		this.drawingCanvas.setHeight(height);
-		this.drawingCanvas.setWidth(width);
-		drawSpaces();
 	}
 
 	/**
@@ -66,9 +47,11 @@ public class ParkingLot {
 	private void drawSpaces(){
 		int i = 0;
 		int y = 0;
+
 		gc.setStroke(Color.BLACK);
 		gc.setLineWidth(2);
 		gc.clearRect(0, 0, this.drawingCanvas.getWidth(), this.drawingCanvas.getHeight());
+
 		for(String auto: cars) {
 			if (auto.equals("handicap")) {
 				gc.setFill(paintBlue);
@@ -100,7 +83,7 @@ public class ParkingLot {
 		for(int i = 0; i < 20; i++) {
 			this.cars.add("handicap");
 		}
-		for(int i = 0; i < 30; i++){
+		for(int i = 0; i < 29; i++){
 			this.cars.add("standard");
 		}
 	}

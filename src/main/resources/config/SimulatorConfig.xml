@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+	<wealthRatio poor="0.0" middleClass="0.0" wealthy="0.0" rich="0.0"/>
+	<spawnRatios>
+		<ratio weekdayIndex="0" base="5" earlyPeakMean="-1" earlyPeakStandardDeviation="0.5" latePeakMean="1" latePeakStandardDeviation="0.6"/>
+		<ratio weekdayIndex="1" base="5" earlyPeakMean="-1" earlyPeakStandardDeviation="0.5" latePeakMean="1" latePeakStandardDeviation="0.6"/>
+		<ratio weekdayIndex="2" base="5" earlyPeakMean="-1" earlyPeakStandardDeviation="0.5" latePeakMean="1" latePeakStandardDeviation="0.6"/>
+		<ratio weekdayIndex="3" base="5" earlyPeakMean="-1" earlyPeakStandardDeviation="0.5" latePeakMean="1" latePeakStandardDeviation="0.6"/>
+		<ratio weekdayIndex="4" base="5" earlyPeakMean="-1" earlyPeakStandardDeviation="0.5" latePeakMean="1" latePeakStandardDeviation="0.6"/>
+		<ratio weekdayIndex="5" base="4" earlyPeakMean="-1" earlyPeakStandardDeviation="0.5" latePeakMean="1" latePeakStandardDeviation="0.6"/>
+		<ratio weekdayIndex="6" base="2" earlyPeakMean="-1" earlyPeakStandardDeviation="0.5" latePeakMean="1" latePeakStandardDeviation="0.6"/>
+	</spawnRatios>
+</configuration>

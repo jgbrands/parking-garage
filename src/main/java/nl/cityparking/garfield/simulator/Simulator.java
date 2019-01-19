@@ -3,13 +3,12 @@ package nl.cityparking.garfield.simulator;
 import nl.cityparking.garfield.simulator.config.Configuration;
 import nl.cityparking.garfield.simulator.config.SpawnRatio;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
 
 public class Simulator implements Runnable {
 	private Configuration conf;
     private Time simulationTime;
     private SpawnRatio spawnRatio;
-
     private boolean stopping = false;
 
     public Simulator(Configuration configuration) {
@@ -35,13 +34,10 @@ public class Simulator implements Runnable {
     }
 
     private void onTick() {
-    	System.out.println("Tick!!");
+
     }
 
     private void onMinutePassed() {
-    	long carsArriving = ThreadLocalRandom.current().nextLong(
-    			this.spawnRatio.base - this.spawnRatio.min,
-			    this.spawnRatio.base + this.spawnRatio.max + 1);
     }
 
     private void onDayPassed() {
@@ -56,5 +52,9 @@ public class Simulator implements Runnable {
 
 	public void stop() {
     	this.stopping = true;
+	}
+
+	public Time getSimulationTime() {
+		return simulationTime;
 	}
 }

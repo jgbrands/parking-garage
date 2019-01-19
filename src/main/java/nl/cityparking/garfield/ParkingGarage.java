@@ -7,48 +7,44 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import nl.cityparking.garfield.gui.PrimaryView;
-import nl.cityparking.garfield.gui.simulator.ParkingLot;
-import nl.cityparking.garfield.simulator.ParkingSpace;
+import nl.cityparking.garfield.gui.simulator.SimulatorControls;
 import nl.cityparking.garfield.simulator.Simulator;
 import nl.cityparking.garfield.simulator.config.Configuration;
 import nl.cityparking.garfield.simulator.config.SpawnRatio;
 
-import java.io.IOException;
 import java.net.URL;
 
 public class ParkingGarage extends Application {
+	private Thread simulatorThread;
+	private Simulator simulator;
+
 	private PrimaryView primaryViewController;
+	private SimulatorControls simulatorControlsController;
 	private Pane primaryView;
 	private Pane parkingLotView;
 	private Pane distributionChartView;
+	private Pane simulatorInfoView;
 
 	public static void main(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage stage) {
 		Configuration configuration = new Configuration();
 
 		for (int i = 0; i < 7; i++) {
 			SpawnRatio spawnRatio = new SpawnRatio();
 			spawnRatio.index = i;
 			spawnRatio.base = 1 + 2 * i;
-			spawnRatio.min = (long) Math.floor(Math.abs(Math.sin(i) / 2));
-			spawnRatio.max = (long) Math.ceil(Math.abs(Math.cos(i) / 2));
 
 			configuration.spawnRatios.add(spawnRatio);
 		}
 
-		// Create the nl.cityparking.garfield.simulator and its thread.
-		Simulator simulator = new Simulator(configuration);
-		Thread simulatorThread = new Thread(simulator, "Simulator Thread");
+		simulator = new Simulator(configuration);
+		simulatorThread = new Thread(simulator, "Simulator Thread");
 		simulatorThread.start();
 
-		// Start the GUI
-		launch(args);
-
-		// Clean up, stop the simulator thread
-		simulator.stop();
-	}
-
-	@Override
-	public void start(Stage stage) {
 		stage.setTitle("Parking Garage");
 
 		try {
@@ -66,7 +62,7 @@ public class ParkingGarage extends Application {
 			try {
 				FXMLLoader loader = this.createLoader("/views/parkingLot.fxml");
 				this.parkingLotView = loader.load();
-				this.primaryViewController.setMainView(this.parkingLotView);
+				this.primaryViewController.setSecondView(this.parkingLotView);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -74,10 +70,27 @@ public class ParkingGarage extends Application {
 			try {
 				FXMLLoader loader = this.createLoader("/views/distributionChart.fxml");
 				this.distributionChartView = loader.load();
-				this.primaryViewController.setSecondView(this.distributionChartView);
+				this.primaryViewController.setMainView(this.distributionChartView);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
+			try {
+				FXMLLoader loader = this.createLoader("/views/simulatorControls.fxml");
+				this.simulatorControlsController = new SimulatorControls(this.simulator);
+				loader.setController(this.simulatorControlsController);
+				this.simulatorInfoView = loader.load();
+				this.primaryViewController.setInfoBar(this.simulatorInfoView);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void stop() {
+		if (simulator != null) {
+			simulator.stop();
 		}
 	}
 
