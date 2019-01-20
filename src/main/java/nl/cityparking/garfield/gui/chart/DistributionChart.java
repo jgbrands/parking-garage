@@ -121,9 +121,9 @@ public class DistributionChart {
 
 		for (double x = 0.0; x < 1.001; x += 0.01) {
 			if (this.useRescale) {
-				dataset.addValue(this.normalDistribution.rescaledValue(x), "Value", Double.toString(x));
+				dataset.addValue(this.normalDistribution.clampedRescaledValue(x), "Value", Double.toString(x));
 			} else {
-				dataset.addValue(this.normalDistribution.value(x), "value", Double.toString(x));
+				dataset.addValue(this.normalDistribution.clampedValue(x), "value", Double.toString(x));
 			}
 		}
 

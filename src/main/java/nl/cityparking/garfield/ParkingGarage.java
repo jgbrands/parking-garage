@@ -1,29 +1,32 @@
 package nl.cityparking.garfield;
 
 import javafx.application.Application;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import nl.cityparking.garfield.gui.PrimaryView;
 import nl.cityparking.garfield.gui.simulator.SimulatorControls;
 import nl.cityparking.garfield.simulator.Simulator;
+import nl.cityparking.garfield.simulator.SimulatorService;
+import nl.cityparking.garfield.simulator.SimulatorState;
 import nl.cityparking.garfield.simulator.config.Configuration;
 import nl.cityparking.garfield.simulator.config.SpawnRatio;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 import java.net.URL;
 
 public class ParkingGarage extends Application {
-	private Thread simulatorThread;
 	private Simulator simulator;
+	private SimulatorState state = new SimulatorState();
+	private SimulatorService service;
 
 	private PrimaryView primaryViewController;
-	private SimulatorControls simulatorControlsController;
 	private Pane primaryView;
-	private Pane parkingLotView;
-	private Pane distributionChartView;
-	private Pane simulatorInfoView;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -31,19 +34,26 @@ public class ParkingGarage extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		Configuration configuration = new Configuration();
+		try {
+			URL configResource = this.getClass().getResource("/config/SimulatorConfig.xml");
 
-		for (int i = 0; i < 7; i++) {
-			SpawnRatio spawnRatio = new SpawnRatio();
-			spawnRatio.index = i;
-			spawnRatio.base = 1 + 2 * i;
+			JAXBContext context = JAXBContext.newInstance(Configuration.class);
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+			Configuration configuration = (Configuration) unmarshaller.unmarshal(configResource);
 
-			configuration.spawnRatios.add(spawnRatio);
+			simulator = new Simulator(configuration);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		simulator = new Simulator(configuration);
-		simulatorThread = new Thread(simulator, "Simulator Thread");
+		Thread simulatorThread = new Thread(simulator, "Simulator Thread");
 		simulatorThread.start();
+
+		// Start our simulator service, too.
+		this.service = new SimulatorService(simulator);
+		service.setPeriod(Duration.millis(10));
+		service.setOnSucceeded(this::updateSimulatorState);
+		service.start();
 
 		stage.setTitle("Parking Garage");
 
@@ -61,30 +71,40 @@ public class ParkingGarage extends Application {
 
 			try {
 				FXMLLoader loader = this.createLoader("/views/parkingLot.fxml");
-				this.parkingLotView = loader.load();
-				this.primaryViewController.setSecondView(this.parkingLotView);
+				Pane parkingLotView = loader.load();
+				this.primaryViewController.setSecondView(parkingLotView);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 			try {
 				FXMLLoader loader = this.createLoader("/views/distributionChart.fxml");
-				this.distributionChartView = loader.load();
-				this.primaryViewController.setMainView(this.distributionChartView);
+				Pane distributionChartView = loader.load();
+				this.primaryViewController.setMainView(distributionChartView);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 			try {
 				FXMLLoader loader = this.createLoader("/views/simulatorControls.fxml");
-				this.simulatorControlsController = new SimulatorControls(this.simulator);
-				loader.setController(this.simulatorControlsController);
-				this.simulatorInfoView = loader.load();
-				this.primaryViewController.setInfoBar(this.simulatorInfoView);
+				SimulatorControls simulatorControlsController = new SimulatorControls(this.state);
+				loader.setController(simulatorControlsController);
+				Pane simulatorInfoView = loader.load();
+				this.primaryViewController.setInfoBar(simulatorInfoView);
+
+				simulatorControlsController.simulatorSpeedValueProperty().addListener((obs, ov, nv) -> {
+					simulator.getSimulationTime().setTickSpeed(nv.longValue());
+				});
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void updateSimulatorState(WorkerStateEvent workerStateEvent) {
+		SimulatorState newState = (SimulatorState) workerStateEvent.getSource().getValue();
+		state.setSimulatorMinutes(newState.getSimulatorMinutes());
+		state.setCarsTotalIn(newState.getCarsTotalIn());
 	}
 
 	@Override

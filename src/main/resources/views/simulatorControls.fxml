@@ -22,19 +22,19 @@
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Label fx:id="simulatorDateLabel" text="SimulatorDate" />
-      <Separator orientation="VERTICAL" GridPane.columnIndex="1" />
-      <HBox GridPane.columnIndex="2">
+      <HBox>
          <children>
             <Label text="Speed" />
-            <Slider max="10" fx:id="simulatorSpeedSlider" />
-            <Label text="1x" fx:id="simulatorSpeedLabel" />
+            <Slider fx:id="simulatorSpeedSlider" max="10" />
+            <Label fx:id="simulatorSpeedLabel" text="1x" />
          </children>
       </HBox>
+      <Separator orientation="VERTICAL" GridPane.columnIndex="1" />
+      <Label fx:id="simulatorDateLabel" text="SimulatorDate" GridPane.columnIndex="2" />
       <HBox GridPane.columnIndex="4">
          <children>
             <Label text="IN:" />
-            <Label text="InAmount" />
+            <Label fx:id="carsInLabel" text="InAmount" />
          </children>
       </HBox>
       <Separator orientation="VERTICAL" GridPane.columnIndex="5" />

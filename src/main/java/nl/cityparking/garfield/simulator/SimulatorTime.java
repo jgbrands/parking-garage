@@ -1,11 +1,10 @@
 package nl.cityparking.garfield.simulator;
 
-public class Time {
+public class SimulatorTime {
 	public static final long DEFAULT_TICK_WAIT = 1000000000;
-
-	private static final long minutesPerHour = 60;
-	private static final long minutesPerDay = 60 * 24;
-	private static final long minutesPerWeek = 60 * 24 * 7;
+	public static final long MINUTES_PER_HOUR = 60;
+	public static final long MINUTES_PER_DAY = 60 * 24;
+	public static final long MINUTES_PER_WEEK = 60 * 24 * 7;
 
 	private long tickSpeed = DEFAULT_TICK_WAIT; // How many nanoseconds have to pass before we tick?
 	private long lastTick = 0;
@@ -13,9 +12,9 @@ public class Time {
 	private long minutesPerTick;
 	private long minutes = 0;
 
-	private long nextHour = minutesPerHour;
-	private long nextDay = minutesPerDay;
-	private long nextWeek = minutesPerWeek;
+	private long nextHour = MINUTES_PER_HOUR;
+	private long nextDay = MINUTES_PER_DAY;
+	private long nextWeek = MINUTES_PER_WEEK;
 
 	private Runnable onTickFn = null;
 	private Runnable onMinuteFn = null;
@@ -23,7 +22,7 @@ public class Time {
 	private Runnable onDayFn = null;
 	private Runnable onWeekFn = null;
 
-	public Time(long minutesPerTick) {
+	public SimulatorTime(long minutesPerTick) {
 		this.minutesPerTick = minutesPerTick;
 	}
 
@@ -47,7 +46,7 @@ public class Time {
 			// The parameters of the nl.cityparking.garfield.simulator usually change every week, and since the smaller units depend on actions
 			// from the larger units we do it this way.
 			if (this.minutes == this.nextWeek) {
-				this.nextWeek += minutesPerWeek;
+				this.nextWeek += MINUTES_PER_WEEK;
 
 				if (this.onWeekFn != null) {
 					this.onWeekFn.run();
@@ -55,7 +54,7 @@ public class Time {
 			}
 
 			if (this.minutes == this.nextDay) {
-				this.nextDay += minutesPerDay;
+				this.nextDay += MINUTES_PER_DAY;
 
 				if (this.onDayFn != null) {
 					this.onDayFn.run();
@@ -63,7 +62,7 @@ public class Time {
 			}
 
 			if (this.minutes == this.nextHour) {
-				this.nextHour += minutesPerHour;
+				this.nextHour += MINUTES_PER_HOUR;
 
 				if (this.onHourFn != null) {
 					this.onHourFn.run();
@@ -105,7 +104,11 @@ public class Time {
 	 * @return Number of hours that have passed.
 	 */
 	public long getHoursPassed() {
-		return this.minutes / minutesPerHour;
+		return this.minutes / MINUTES_PER_HOUR;
+	}
+
+	public long getMinuteOfDay() {
+		return minutes % MINUTES_PER_DAY;
 	}
 
 	/**
@@ -121,7 +124,7 @@ public class Time {
 	 * @return Number of days that have passed.
 	 */
 	public long getDaysPassed() {
-		return this.minutes / minutesPerDay;
+		return this.minutes / MINUTES_PER_DAY;
 	}
 
 	/**
@@ -138,7 +141,7 @@ public class Time {
 	 * @return Number of weeks that have passed.
 	 */
 	public long getWeeksPassed() {
-		return this.minutes / minutesPerWeek;
+		return this.minutes / MINUTES_PER_WEEK;
 	}
 
 	/**
