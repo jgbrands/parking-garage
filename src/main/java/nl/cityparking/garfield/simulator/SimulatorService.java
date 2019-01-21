@@ -26,6 +26,7 @@ public class SimulatorService extends ScheduledService<SimulatorState> {
 				SimulatorState state = new SimulatorState();
 				state.setSimulatorMinutes(simulator.getSimulationTime().getMinutesPassed());
 				state.setCarsTotalIn(simulator.getCarsIn());
+				state.setCarsTotalOut(simulator.getCarsOut());
 				return state;
 			}
 		};

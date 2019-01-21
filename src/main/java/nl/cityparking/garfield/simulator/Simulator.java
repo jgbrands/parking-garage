@@ -1,20 +1,21 @@
 package nl.cityparking.garfield.simulator;
 
 import nl.cityparking.garfield.simulator.agent.Agent;
-import nl.cityparking.garfield.simulator.agent.AgentGenerator;
 import nl.cityparking.garfield.simulator.config.Configuration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Simulator implements Runnable {
 	private Configuration conf;
     private SimulatorTime simulationTime;
     private AgentManager agentManager = new AgentManager();
     private ArrivalManager arrivalManager = new ArrivalManager();
-    private CarSpawner carSpawner = new CarSpawner();
+    private ParkingManager parkingManager = new ParkingManager();
 
     private boolean stopping = false;
     private long carsIn = 0;
+    private long carsOut = 0;
 
     public Simulator(Configuration configuration) {
 	    this.conf = configuration;
@@ -26,8 +27,7 @@ public class Simulator implements Runnable {
 	    this.simulationTime.onDayPassed(this::onDayPassed);
 	    this.simulationTime.onWeekPassed(this::onWeekPassed);
 
-	    // Get the spawn ratio, or the default if it doesn't exist.
-	    carSpawner.setSpawnRatio(conf.getSpawnRatio(0));
+	    this.parkingManager.addFloors(3, 5, 40);
     }
 
 	public void run() {
@@ -40,15 +40,23 @@ public class Simulator implements Runnable {
     }
 
     private void onMinutePassed() {
-    	ArrayList<ArrivalManager.Arrival> arrivals = arrivalManager.getArrivals(simulationTime.getMinutesPassed());
-    	carsIn += arrivals.size();
+    	// Phase one, get leavers:
+	    List<Agent> result = parkingManager.getLeavingAgents(simulationTime.getMinutesPassed());
+	    carsOut += result.size();
+
+	    // Phase two, get arrivals:
+    	ArrayList<Arrival> arrivals = arrivalManager.getArrivals(simulationTime.getMinutesPassed());
+    	for (Arrival arrival: arrivals) {
+    		if (parkingManager.handleArrival(arrival)) {
+			    carsIn++;
+		    }
+	    }
     }
 
 	private void onHourPassed() {
 	}
 
 	private void onDayPassed() {
-    	carSpawner.setSpawnRatio(this.conf.getSpawnRatio(this.simulationTime.getDayOfWeek()));
     }
 
     private void onWeekPassed() {
@@ -65,5 +73,9 @@ public class Simulator implements Runnable {
 
 	public long getCarsIn() {
 		return carsIn;
+	}
+
+	public long getCarsOut() {
+		return carsOut;
 	}
 }

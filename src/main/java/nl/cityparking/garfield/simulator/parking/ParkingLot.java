@@ -1,9 +1,9 @@
-package nl.cityparking.garfield.simulator;
+package nl.cityparking.garfield.simulator.parking;
 
-import nl.cityparking.garfield.simulator.agent.Car;
+import nl.cityparking.garfield.simulator.Arrival;
+import nl.cityparking.garfield.simulator.agent.Agent;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.TreeSet;
 
 public class ParkingLot {
@@ -13,6 +13,7 @@ public class ParkingLot {
 	private int rows = 2;
 
 	public ParkingLot(int spaces) {
+		assert (spaces % 2 == 0);
 		resize(spaces);
 	}
 
@@ -55,28 +56,10 @@ public class ParkingLot {
 	}
 
 	/**
-	 *
-	 * @param car
-	 */
-	public boolean parkCar(Car car) {
-		Objects.requireNonNull(car, "car cannot be null");
-
-		int freeIndex = getFirstFreeSpaceIndex();
-		ParkingSpace freeSpace = spaces.get(freeIndex);
-
-		if (freeSpace != null) {
-			freeSpace.setOccupant(car);
-			freeSpaces.remove(freeIndex);
-		}
-
-		return false;
-	}
-
-	/**
 	 * Returns the first free parking space.
 	 * @return A ParkingSpace instance that is unoccupied, or null if all spaces are occupied.
 	 */
-	private int getFirstFreeSpaceIndex() {
+	private synchronized int popFirstFreeSpaceIndex() {
 		while (freeSpaces.size() > 0) {
 			int freeIndex = freeSpaces.first();
 			ParkingSpace space = spaces.get(freeIndex);
@@ -86,6 +69,7 @@ public class ParkingLot {
 				// TODO: Maybe throw an exception instead?
 				freeSpaces.remove(freeIndex);
 			} else {
+				freeSpaces.remove(freeIndex);
 				return freeIndex;
 			}
 		}
@@ -93,8 +77,23 @@ public class ParkingLot {
 		return -1;
 	}
 
+	public void parkArrival(Arrival arrival) {
+		int index = popFirstFreeSpaceIndex();
+		spaces.get(index).setOccupant(arrival.agent, arrival.departureMinute);
+	}
+
+	public synchronized Agent freeSpace(ParkingSpace space) {
+		int index = spaces.indexOf(space);
+		freeSpaces.add(index);
+		return space.free();
+	}
+
 	public int getAmountOfOccupants() {
 		return spaces.size() - freeSpaces.size();
+	}
+
+	public int getAmountOfFreeSpaces() {
+		return freeSpaces.size();
 	}
 
 	public int getRows() {
@@ -103,5 +102,9 @@ public class ParkingLot {
 
 	public void setRows(int rows) {
 		this.rows = rows;
+	}
+
+	public ArrayList<ParkingSpace> getSpaces() {
+		return spaces;
 	}
 }

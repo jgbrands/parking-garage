@@ -30,6 +30,6 @@
    </HBox>
    <HBox GridPane.columnIndex="4">
       <Label text="OUT "/>
-      <Label styleClass="label-value" text="0"/>
+      <Label fx:id="carsOutLabel" styleClass="label-value" text="0"/>
    </HBox>
 </GridPane>

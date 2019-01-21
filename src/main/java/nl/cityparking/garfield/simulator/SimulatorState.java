@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleLongProperty;
 public class SimulatorState {
 	private LongProperty simulatorMinutes = new SimpleLongProperty();
 	private LongProperty carsTotalIn = new SimpleLongProperty();
+	private LongProperty carsTotalOut = new SimpleLongProperty();
 
 	public long getSimulatorMinutes() {
 		return simulatorMinutes.get();
@@ -29,5 +30,17 @@ public class SimulatorState {
 
 	public void setCarsTotalIn(long carsTotalIn) {
 		this.carsTotalIn.set(carsTotalIn);
+	}
+
+	public long getCarsTotalOut() {
+		return carsTotalOut.get();
+	}
+
+	public LongProperty carsTotalOutProperty() {
+		return carsTotalOut;
+	}
+
+	public void setCarsTotalOut(long carsTotalOut) {
+		this.carsTotalOut.set(carsTotalOut);
 	}
 }

@@ -107,6 +107,7 @@ public class ParkingGarage extends Application {
 		SimulatorState newState = (SimulatorState) workerStateEvent.getSource().getValue();
 		state.setSimulatorMinutes(newState.getSimulatorMinutes());
 		state.setCarsTotalIn(newState.getCarsTotalIn());
+		state.setCarsTotalOut(newState.getCarsTotalOut());
 	}
 
 	@Override

@@ -22,23 +22,14 @@ public class ArrivalManager {
 
 			// For each work day, we want to add an arrival.
 			for (Employment.WorkingHours workingHours: employment.getWorkingHours()) {
-				long adjustedArrivalMinute = workingHours.getStartHour() * 60 - ThreadLocalRandom.current().nextLong(30);
-				arrivals.add(new Arrival(adjustedArrivalMinute + startOfWeek, agent));
+				long adjustedArrivalMinute = workingHours.getStartHour() * 60 - ThreadLocalRandom.current().nextLong(60);
+				long adjustedDepartureMinute = workingHours.getEndHour() * 60 - ThreadLocalRandom.current().nextLong(30);
+				arrivals.add(new Arrival(adjustedArrivalMinute + startOfWeek, adjustedDepartureMinute + startOfWeek, agent));
 			}
 		}
 
 		arrivals.sort(Comparator.comparingLong(a -> a.arrivalMinute));
 		nextArrival = arrivals.get(0).arrivalMinute;
-	}
-
-	public static class Arrival {
-		public final long arrivalMinute;
-		public final Agent agent;
-
-		public Arrival(long arrivalMinute, Agent agent) {
-			this.arrivalMinute = arrivalMinute;
-			this.agent = agent;
-		}
 	}
 
 	public ArrayList<Arrival> getArrivals(long minuteOfWeek) {

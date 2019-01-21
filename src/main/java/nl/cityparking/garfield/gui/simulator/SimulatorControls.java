@@ -29,6 +29,9 @@ public class SimulatorControls {
 	@FXML
 	private Label carsInLabel;
 
+	@FXML
+	private Label carsOutLabel;
+
 	public SimulatorControls(SimulatorState state) {
 		this.state = state;
 	}
@@ -51,6 +54,7 @@ public class SimulatorControls {
 		});
 
 		state.carsTotalInProperty().addListener((obs, ov, nv) -> carsInLabel.setText(nv.toString()));
+		state.carsTotalOutProperty().addListener((obs, ov, nv) -> carsOutLabel.setText(nv.toString()));
 	}
 
 	private final static LocalDateTime startDate = LocalDateTime.of(1990, Month.JANUARY, 1, 0, 0);

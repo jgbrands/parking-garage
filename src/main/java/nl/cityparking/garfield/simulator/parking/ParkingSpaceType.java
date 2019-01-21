@@ -1,4 +1,4 @@
-package nl.cityparking.garfield.simulator;
+package nl.cityparking.garfield.simulator.parking;
 
 public enum ParkingSpaceType {
 	OPEN,
