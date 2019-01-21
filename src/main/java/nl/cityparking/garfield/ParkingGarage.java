@@ -1,6 +1,7 @@
 package nl.cityparking.garfield;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -66,7 +67,10 @@ public class ParkingGarage extends Application {
 		}
 
 		if (this.primaryView != null) {
-			stage.setScene(new Scene(this.primaryView, 0, 0));
+			Scene scene = new Scene(this.primaryView, 0, 0);
+			stage.setScene(scene);
+			scene.getStylesheets().add(getClass().getResource("/style/style.css").toExternalForm());
+
 			stage.show();
 
 			try {
@@ -118,8 +122,7 @@ public class ParkingGarage extends Application {
 		URL resource = this.getClass().getResource(filename);
 
 		if (resource != null) {
-			FXMLLoader loader = new FXMLLoader(resource);
-			return loader;
+			return new FXMLLoader(resource);
 		}
 
 		return null;

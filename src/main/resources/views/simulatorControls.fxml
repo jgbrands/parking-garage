@@ -8,40 +8,36 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane styleClass="info-bar" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" />
-      <ColumnConstraints hgrow="NEVER" />
       <ColumnConstraints hgrow="SOMETIMES" />
       <ColumnConstraints hgrow="ALWAYS" />
       <ColumnConstraints hgrow="SOMETIMES" />
-      <ColumnConstraints hgrow="NEVER" />
       <ColumnConstraints hgrow="SOMETIMES" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints vgrow="ALWAYS" valignment="CENTER" />
    </rowConstraints>
    <children>
-      <HBox>
+      <HBox alignment="CENTER">
          <children>
             <Label text="Speed" />
-            <Slider fx:id="simulatorSpeedSlider" max="10" />
-            <Label fx:id="simulatorSpeedLabel" text="1x" />
+            <Slider fx:id="simulatorSpeedSlider" majorTickUnit="1.0" max="10" snapToTicks="true" />
+            <Label fx:id="simulatorSpeedLabel" styleClass="label-value" text="1x" />
          </children>
       </HBox>
-      <Separator orientation="VERTICAL" GridPane.columnIndex="1" />
-      <Label fx:id="simulatorDateLabel" text="SimulatorDate" GridPane.columnIndex="2" />
+      <Label fx:id="simulatorDateLabel" text="SimulatorDate" GridPane.columnIndex="1" />
+      <HBox GridPane.columnIndex="3">
+         <children>
+            <Label text="IN " />
+            <Label fx:id="carsInLabel" styleClass="label-value" text="0" />
+         </children>
+      </HBox>
       <HBox GridPane.columnIndex="4">
          <children>
-            <Label text="IN:" />
-            <Label fx:id="carsInLabel" text="InAmount" />
-         </children>
-      </HBox>
-      <Separator orientation="VERTICAL" GridPane.columnIndex="5" />
-      <HBox GridPane.columnIndex="6">
-         <children>
-            <Label text="OUT:" />
-            <Label text="OutAmount" />
+            <Label text="OUT " />
+            <Label styleClass="label-value" text="0" />
          </children>
       </HBox>
    </children>

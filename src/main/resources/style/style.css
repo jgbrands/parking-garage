@@ -1,0 +1,33 @@
+.info-bar {
+    -fx-background-color: #101030;
+}
+
+.info-bar * {
+    -fx-padding: 3px;
+}
+
+.info-bar .label {
+    -fx-text-fill: #00F090;
+    -fx-font-weight: bold;
+}
+
+.info-bar .label-value {
+    -fx-text-fill: #F0F0F0;
+    -fx-font-weight: normal;
+}
+
+.info-bar .slider .track {
+    -fx-background-color: #F0F0F0;
+    -fx-background-image: null;
+}
+
+.info-bar .slider .thumb {
+    -fx-background-color: #00F090;
+    -fx-background-image: null;
+    -fx-border-width: 1px;
+    -fx-border-color: #F0F0F0;
+    -fx-border-radius: 3px;
+    -fx-scale-x: 1.75;
+    -fx-scale-y: 1.75;
+}
+

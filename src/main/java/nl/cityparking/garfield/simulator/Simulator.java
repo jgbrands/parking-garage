@@ -30,10 +30,6 @@ public class Simulator implements Runnable {
     }
 
 	public void run() {
-    	ParkingLot lot = new ParkingLot(20);
-    	lot.resize(40);
-    	lot.resize(10);
-
          while (!this.stopping) {
         	this.simulationTime.tick();
         }
