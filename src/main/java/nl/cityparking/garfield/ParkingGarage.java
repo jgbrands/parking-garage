@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import nl.cityparking.garfield.gui.PrimaryView;
+import nl.cityparking.garfield.gui.simulator.GarageView;
+import nl.cityparking.garfield.gui.simulator.ParkingLotController;
 import nl.cityparking.garfield.gui.simulator.SimulatorControls;
 import nl.cityparking.garfield.simulator.Simulator;
 import nl.cityparking.garfield.simulator.SimulatorService;
@@ -23,6 +25,7 @@ public class ParkingGarage extends Application {
 	private Simulator simulator;
 	private SimulatorState state = new SimulatorState();
 	private SimulatorService service;
+	private GarageView garageView = null;
 
 	private PrimaryView primaryViewController;
 	private Pane primaryView;
@@ -72,17 +75,12 @@ public class ParkingGarage extends Application {
 			stage.show();
 
 			try {
-				FXMLLoader loader = this.createLoader("/views/parkingLot.fxml");
-				Pane parkingLotView = loader.load();
-				this.primaryViewController.setSecondView(parkingLotView);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+				FXMLLoader loader = this.createLoader("/views/garageView.fxml");
+				Pane view = loader.load();
+				garageView = loader.getController();
+				garageView.setFloors(simulator.getParkingManager().getFloors());
 
-			try {
-				FXMLLoader loader = this.createLoader("/views/distributionChart.fxml");
-				Pane distributionChartView = loader.load();
-				this.primaryViewController.setMainView(distributionChartView);
+				this.primaryViewController.setMainView(view);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -108,6 +106,8 @@ public class ParkingGarage extends Application {
 		state.setSimulatorMinutes(newState.getSimulatorMinutes());
 		state.setCarsTotalIn(newState.getCarsTotalIn());
 		state.setCarsTotalOut(newState.getCarsTotalOut());
+
+		garageView.update();
 	}
 
 	@Override

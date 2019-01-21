@@ -78,4 +78,8 @@ public class Simulator implements Runnable {
 	public long getCarsOut() {
 		return carsOut;
 	}
+
+	public ParkingManager getParkingManager() {
+    	return parkingManager;
+	}
 }

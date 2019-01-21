@@ -17,7 +17,7 @@ public class AgentManager {
 	public AgentManager() {
 		AgentGenerator generator = new AgentGenerator();
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 600; i++) {
 			Agent a = generator.generate();
 			agents.add(a);
 

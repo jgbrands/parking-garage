@@ -64,6 +64,14 @@ public class ParkingManager {
 		return leavingAgents;
 	}
 
+	public ArrayList<ParkingFloor> getFloors() {
+		return floors;
+	}
+
+	public void useThreading(boolean threading) {
+		useThreading = true;
+	}
+
 	private static class FindLeaversTask extends RecursiveTask<List<Agent>> {
 		private ArrayList<ParkingFloor> floors;
 		private long currentTime;

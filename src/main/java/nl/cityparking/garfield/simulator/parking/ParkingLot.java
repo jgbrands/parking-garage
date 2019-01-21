@@ -88,6 +88,10 @@ public class ParkingLot {
 		return space.free();
 	}
 
+	public int getSize() {
+		return spaces.size();
+	}
+
 	public int getAmountOfOccupants() {
 		return spaces.size() - freeSpaces.size();
 	}
