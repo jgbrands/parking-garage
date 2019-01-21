@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configuration>
-	<wealthRatio poor="0.0" middleClass="0.0" wealthy="0.0" rich="0.0"/>
 	<spawnRatios>
 		<ratio weekdayIndex="0" base="0" factor="1" variance="2" peakMean="-0.8" peakStandardDeviation="1.4" />
 		<ratio weekdayIndex="1" base="0" factor="1" variance="2" peakMean="-0.8" peakStandardDeviation="1.4" />

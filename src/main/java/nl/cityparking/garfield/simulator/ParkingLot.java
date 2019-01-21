@@ -1,6 +1,6 @@
 package nl.cityparking.garfield.simulator;
 
-import nl.cityparking.garfield.simulator.family.Car;
+import nl.cityparking.garfield.simulator.agent.Car;
 
 import java.util.ArrayList;
 import java.util.Objects;

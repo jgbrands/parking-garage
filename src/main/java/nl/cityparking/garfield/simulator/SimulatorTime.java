@@ -12,9 +12,9 @@ public class SimulatorTime {
 	private long minutesPerTick;
 	private long minutes = 0;
 
-	private long nextHour = MINUTES_PER_HOUR;
-	private long nextDay = MINUTES_PER_DAY;
-	private long nextWeek = MINUTES_PER_WEEK;
+	private long nextHour = 0;
+	private long nextDay = 0;
+	private long nextWeek = 0;
 
 	private Runnable onTickFn = null;
 	private Runnable onMinuteFn = null;
@@ -40,8 +40,6 @@ public class SimulatorTime {
 		}
 
 		for (int i = 0; i < minutesPerTick; i++) {
-			this.minutes++;
-
 			// We start with the largest unit (weeks) here, because it is actually the most sensible thing to do.
 			// The parameters of the nl.cityparking.garfield.simulator usually change every week, and since the smaller units depend on actions
 			// from the larger units we do it this way.
@@ -72,6 +70,8 @@ public class SimulatorTime {
 			if (this.onMinuteFn != null) {
 				this.onMinuteFn.run();
 			}
+
+			this.minutes++;
 		}
 	}
 

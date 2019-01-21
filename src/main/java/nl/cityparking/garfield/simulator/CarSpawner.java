@@ -1,7 +1,7 @@
 package nl.cityparking.garfield.simulator;
 
 import nl.cityparking.garfield.simulator.config.SpawnRatio;
-import nl.cityparking.garfield.simulator.family.Car;
+import nl.cityparking.garfield.simulator.agent.Car;
 import nl.cityparking.garfield.simulator.math.NormalDistribution;
 
 import java.util.ArrayList;

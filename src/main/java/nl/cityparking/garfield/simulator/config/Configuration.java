@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 @XmlRootElement(name = "configuration")
 public class Configuration implements Serializable {
-	public WealthRatio wealthRatio;
-
 	@XmlElementWrapper(name = "spawnRatios")
 	@XmlElement(name = "ratio")
 	public ArrayList<SpawnRatio> spawnRatios;
@@ -18,7 +16,6 @@ public class Configuration implements Serializable {
 	public Configuration() {
 		super();
 
-		this.wealthRatio = new WealthRatio();
 		this.spawnRatios = new ArrayList<>();
 	}
 

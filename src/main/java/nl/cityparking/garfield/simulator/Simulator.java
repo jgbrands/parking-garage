@@ -1,15 +1,16 @@
 package nl.cityparking.garfield.simulator;
 
+import nl.cityparking.garfield.simulator.agent.Agent;
+import nl.cityparking.garfield.simulator.agent.AgentGenerator;
 import nl.cityparking.garfield.simulator.config.Configuration;
-import nl.cityparking.garfield.simulator.config.SpawnRatio;
-import nl.cityparking.garfield.simulator.family.Car;
 
 import java.util.ArrayList;
 
 public class Simulator implements Runnable {
 	private Configuration conf;
     private SimulatorTime simulationTime;
-    private SpawnRatio spawnRatio;
+    private AgentManager agentManager = new AgentManager();
+    private ArrivalManager arrivalManager = new ArrivalManager();
     private CarSpawner carSpawner = new CarSpawner();
 
     private boolean stopping = false;
@@ -39,8 +40,8 @@ public class Simulator implements Runnable {
     }
 
     private void onMinutePassed() {
-    	ArrayList<Car> cars = carSpawner.spawn(simulationTime.getMinuteOfDay());
-    	carsIn += cars.size();
+    	ArrayList<ArrivalManager.Arrival> arrivals = arrivalManager.getArrivals(simulationTime.getMinutesPassed());
+    	carsIn += arrivals.size();
     }
 
 	private void onHourPassed() {
@@ -51,6 +52,7 @@ public class Simulator implements Runnable {
     }
 
     private void onWeekPassed() {
+    	arrivalManager.generate(agentManager.getCommuters(), simulationTime.getMinutesPassed());
     }
 
 	public void stop() {

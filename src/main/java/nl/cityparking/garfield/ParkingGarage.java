@@ -1,7 +1,6 @@
 package nl.cityparking.garfield;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +14,6 @@ import nl.cityparking.garfield.simulator.Simulator;
 import nl.cityparking.garfield.simulator.SimulatorService;
 import nl.cityparking.garfield.simulator.SimulatorState;
 import nl.cityparking.garfield.simulator.config.Configuration;
-import nl.cityparking.garfield.simulator.config.SpawnRatio;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
