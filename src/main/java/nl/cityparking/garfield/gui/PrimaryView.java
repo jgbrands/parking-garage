@@ -2,6 +2,8 @@ package nl.cityparking.garfield.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -10,18 +12,18 @@ import javafx.scene.layout.BorderPane;
  */
 public class PrimaryView {
 	@FXML
-	private BorderPane primaryLayout;
+	public TabPane primaryTabView;
 
 	@FXML
-	private void initialize() {
-	}
+	private BorderPane primaryLayout;
 
 	/**
 	 * Sets the main view of the screen (left side)
 	 * @param node the view you want to insert
+	 * @param tabLabel
 	 */
-	public void setMainView(Node node) {
-		primaryLayout.setCenter(node);
+	public void addMainViewTab(Node node, String tabLabel) {
+		primaryTabView.getTabs().add(new Tab(tabLabel, node));
 	}
 
 	/**
