@@ -17,7 +17,7 @@ public class ParkingManager {
 	private ArrayList<ParkingFloor> floors = new ArrayList<>();
 
 	private ForkJoinPool pool = ForkJoinPool.commonPool();
-	private boolean useThreading = true;
+	private boolean useThreading = false;
 
 	public void addFloor(int lots, int lotSize) {
 		floors.add(new ParkingFloor(lots, lotSize));
@@ -56,7 +56,7 @@ public class ParkingManager {
 				leavingAgents.addAll(lot.getSpaces().parallelStream()
 						.filter(ParkingSpace::isOccupied)
 						.filter(s -> s.getOccupiedUntil() <= currentTime)
-						.map(ParkingSpace::free)
+						.map(lot::freeSpace)
 						.collect(Collectors.toList()));
 			}
 		}
