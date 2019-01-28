@@ -3,6 +3,7 @@ package nl.cityparking.garfield.simulator;
 import nl.cityparking.garfield.simulator.agent.Agent;
 import nl.cityparking.garfield.simulator.config.Configuration;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
@@ -71,22 +72,9 @@ public class Simulator implements Runnable {
 
     private void onMinutePassed() {
     	// Phase one, get leavers:
-	    Collection<Agent> result = parkingManager.getLeavingAgents(simulationTime.getMinutesPassed());
-	    ArrayList<Departure> departures = new ArrayList<>();
-
-	    for (Agent a: result) {
-		    int random = ThreadLocalRandom.current().nextInt(10);
-		    if(random <= 2) {
-			    departures.add(new Departure(a, 60 * 10, 30));
-		    }
-		    else {
-		    	departures.add(new Departure(a, 60 * 10, 0));
-		    }
-		    economyManager.processPayments(departures);
-		    System.out.println(a.getWealth());
-	    }
-
-	    carsOut += result.size();
+	    Collection<Departure> departures = parkingManager.getLeavingAgents(simulationTime.getMinutesPassed());
+	    economyManager.processPayments(departures);
+	    carsOut += departures.size();
 
 	    // Phase two, get arrivals:
     	Collection<Arrival> arrivals = arrivalManager.getArrivals(simulationTime.getMinutesPassed());
@@ -101,7 +89,7 @@ public class Simulator implements Runnable {
 	}
 
 	private void onDayPassed() {
-
+		System.out.println("We earned a total of " + NumberFormat.getCurrencyInstance().format(economyManager.getFunds()));
     }
 
     private void onWeekPassed() {
