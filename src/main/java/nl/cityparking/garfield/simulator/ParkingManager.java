@@ -28,7 +28,7 @@ public class ParkingManager {
 	private ArrayList<ParkingFloor> floors = new ArrayList<>();
 
 	private ForkJoinPool pool = ForkJoinPool.commonPool();
-	private boolean useThreading = true;
+	private boolean useThreading = false;
 
 	/**
 	 * Adds a floor to the parking garage. Leaving lots and lotSize zero will add an empty floor can be configured as
@@ -106,7 +106,7 @@ public class ParkingManager {
 				leavingAgents.addAll(lot.getSpaces().parallelStream()
 						.filter(ParkingSpace::isOccupied)
 						.filter(s -> s.getOccupiedUntil() <= currentTime)
-						.map(ParkingSpace::free)
+						.map(lot::freeSpace)
 						.collect(Collectors.toList()));
 			}
 		}

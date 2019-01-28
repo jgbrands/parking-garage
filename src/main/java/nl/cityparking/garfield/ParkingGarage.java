@@ -10,7 +10,7 @@ import javafx.util.Duration;
 
 import nl.cityparking.garfield.gui.PrimaryView;
 import nl.cityparking.garfield.gui.simulator.GarageView;
-import nl.cityparking.garfield.gui.simulator.ParkingLotController;
+import nl.cityparking.garfield.gui.EconomicViewController;
 import nl.cityparking.garfield.gui.simulator.SimulatorControls;
 import nl.cityparking.garfield.simulator.Simulator;
 import nl.cityparking.garfield.simulator.SimulatorService;
@@ -26,6 +26,7 @@ public class ParkingGarage extends Application {
 	private SimulatorState state = new SimulatorState();
 	private SimulatorService service;
 	private GarageView garageView = null;
+	private EconomicViewController economicViewController = null;
 
 	private PrimaryView primaryViewController;
 	private Pane primaryView;
@@ -73,17 +74,27 @@ public class ParkingGarage extends Application {
 			scene.getStylesheets().add(getClass().getResource("/style/style.css").toExternalForm());
 
 			stage.show();
-
 			try {
 				FXMLLoader loader = this.createLoader("/views/garageView.fxml");
 				Pane view = loader.load();
 				garageView = loader.getController();
 				garageView.setFloors(simulator.getParkingManager().getFloors());
 
-				this.primaryViewController.setMainView(view);
+				this.primaryViewController.addMainViewTab(view, "Garage");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
+
+			try {
+				FXMLLoader loader = this.createLoader("/views/economicView.fxml");
+				Pane view = loader.load();
+				economicViewController = loader.getController();
+				this.primaryViewController.addMainViewTab(view, "Economy");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 
 			try {
 				FXMLLoader loader = this.createLoader("/views/simulatorControls.fxml");
@@ -108,6 +119,10 @@ public class ParkingGarage extends Application {
 		state.setCarsTotalOut(newState.getCarsTotalOut());
 
 		garageView.update();
+
+		economicViewController.setMinutes(newState.getSimulatorMinutes());
+		economicViewController.setCarsIn(newState.getCarsTotalIn());
+		economicViewController.setCarsOut(newState.getCarsTotalOut());
 	}
 
 	@Override
