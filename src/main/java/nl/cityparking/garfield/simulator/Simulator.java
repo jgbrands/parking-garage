@@ -89,7 +89,7 @@ public class Simulator implements Runnable {
 	}
 
 	private void onDayPassed() {
-		System.out.println("We earned a total of " + NumberFormat.getCurrencyInstance().format(economyManager.getFunds()));
+		economyManager.getEconomy().finalizeReport(simulationTime.getMinutesPassed());
     }
 
     private void onWeekPassed() {
@@ -113,4 +113,7 @@ public class Simulator implements Runnable {
     	return parkingManager;
 	}
 
+	public EconomyManager getEconomyManager() {
+		return economyManager;
+	}
 }

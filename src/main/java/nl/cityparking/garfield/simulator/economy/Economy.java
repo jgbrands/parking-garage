@@ -1,5 +1,8 @@
 package nl.cityparking.garfield.simulator.economy;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * class that determines all things concerning money & prices
  *
@@ -10,6 +13,11 @@ public class Economy {
 	private static final long PASS_HOURLY_PRICE = 1;
 	private static final long WEEKLY_PASS = 10;
 
+	private long funds = 0;
+	private Report dailyReport = new Report(0);
+	private int currentIndex = 0;
+	private ArrayList<Report> financialReports = new ArrayList<>();
+
 	/**
 	 * method to calculate the price to be paid by the agent
 	 *
@@ -17,7 +25,9 @@ public class Economy {
 	 * @return ticket (which contains the price to be paid by the agent
 	 */
 	public long calculateTicket(long minutes) {
-		return minutes/60 * HOURLY_PRICE;
+		long amountToPay = minutes/60 * HOURLY_PRICE;
+		dailyReport.addPayment(amountToPay);
+		return amountToPay;
 	}
 
 	/**
@@ -46,5 +56,21 @@ public class Economy {
 	 */
 	public long getWeeklyPass(){
 		return WEEKLY_PASS;
+	}
+
+	public void finalizeReport(long currentTime) {
+		dailyReport.close(currentTime);
+		financialReports.add(dailyReport);
+		dailyReport = new Report(currentTime);
+	}
+
+	public Collection<Report> getNewReports() {
+		if (currentIndex < financialReports.size()) {
+			Collection<Report> reports = financialReports.subList(currentIndex, financialReports.size());
+			currentIndex = financialReports.size();
+			return reports;
+		}
+
+		return new ArrayList<>();
 	}
 }
