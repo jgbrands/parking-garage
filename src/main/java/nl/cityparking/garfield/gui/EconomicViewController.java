@@ -122,7 +122,7 @@ public class EconomicViewController {
 
 		this.data.addListener((ListChangeListener<? super Report>) observable -> {
 			while (observable.next()) {
-				Report report = data.get(observable.getFrom());gi
+				Report report = data.get(observable.getFrom());
 
 				incomeSeries.getData().add(new XYChart.Data<>(report.getDate().toString(), report.getIncome()));
 				expensesSeries.getData().add(new XYChart.Data<>(report.getDate().toString(), report.getExpenses()));
