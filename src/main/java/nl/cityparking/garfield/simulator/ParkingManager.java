@@ -180,19 +180,31 @@ public class ParkingManager {
 		}
 
 		/**
+		 * WorkerTask processes a ParkingLot, collects all leaving agents, frees up their ParkingSpaces and then
+		 * returns a collection of the departing Agents.
 		 *
+		 * @author Jesse
+		 * @since 1.0
 		 */
 		private static class WorkerTask extends RecursiveTask<Collection<Agent>> {
-			private final static int THRESHOLD = 400;
-
 			private ParkingLot parkingLot;
 			private long currentTime;
 
+			/**
+			 * Initializes an instance of WorkerTask.
+			 *
+			 * @param parkingLot The ParkingLot to process.
+			 * @param currentTime The current time in simulation minutes.
+			 */
 			public WorkerTask(ParkingLot parkingLot, long currentTime) {
 				this.parkingLot = parkingLot;
 				this.currentTime = currentTime;
 			}
 
+			/**
+			 * Collects all departing Agents, frees their spaces and returns the Collection of departing Agents.
+			 * @return Collection of departing Agents.
+			 */
 			@Override
 			protected List<Agent> compute() {
 				return parkingLot.getSpaces().stream()

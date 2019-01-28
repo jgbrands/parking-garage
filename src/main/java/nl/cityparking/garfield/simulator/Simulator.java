@@ -4,6 +4,7 @@ import nl.cityparking.garfield.simulator.agent.Agent;
 import nl.cityparking.garfield.simulator.config.Configuration;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -68,11 +69,11 @@ public class Simulator implements Runnable {
 
     private void onMinutePassed() {
     	// Phase one, get leavers:
-	    List<Agent> result = parkingManager.getLeavingAgents(simulationTime.getMinutesPassed());
+	    Collection<Agent> result = parkingManager.getLeavingAgents(simulationTime.getMinutesPassed());
 	    carsOut += result.size();
 
 	    // Phase two, get arrivals:
-    	ArrayList<Arrival> arrivals = arrivalManager.getArrivals(simulationTime.getMinutesPassed());
+    	Collection<Arrival> arrivals = arrivalManager.getArrivals(simulationTime.getMinutesPassed());
     	for (Arrival arrival: arrivals) {
     		if (parkingManager.handleArrival(arrival)) {
 			    carsIn++;
