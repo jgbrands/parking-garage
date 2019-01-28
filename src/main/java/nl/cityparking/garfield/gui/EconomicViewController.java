@@ -2,6 +2,7 @@ package nl.cityparking.garfield.gui;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -15,11 +16,12 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 
 public class EconomicViewController {
-	public LineChart<Number, Number> incomeChart;
+	public LineChart<String, Number> incomeChart;
 	public TextField inputField;
 	public Button confirmButton;
 	public TableView<TestModelEconomic> overView;
 
+	private LineChart.Series<String, Number> series = new LineChart.Series<>();
 	private LongProperty minutes = new SimpleLongProperty();
 	private LongProperty carsIn = new SimpleLongProperty();
 	private LongProperty carsOut = new SimpleLongProperty();
@@ -41,52 +43,50 @@ public class EconomicViewController {
 
 	@FXML
 	private void initialize() {
+		/**
+		 *
+		 * @author Allard
+		 */
 		TableColumn<TestModelEconomic, Number> total = new TableColumn<>("Total");
 		TableColumn<TestModelEconomic, LocalDate> date = new TableColumn<>("Date");
 		TableColumn<TestModelEconomic, Number> expense = new TableColumn<>("Expense");
 		TableColumn<TestModelEconomic, Number> income = new TableColumn<>("Income");
+
+
+
 		overView.getColumns().add(date);
 		overView.getColumns().add(expense);
 		overView.getColumns().add(income);
 		overView.getColumns().add(total);
 
 		data = FXCollections.observableArrayList(
-				new TestModelEconomic(),
-				new TestModelEconomic(),
-				new TestModelEconomic(),
-				new TestModelEconomic(),
-				new TestModelEconomic(),
-				new TestModelEconomic(),
-				new TestModelEconomic(),
-				new TestModelEconomic(),
-				new TestModelEconomic()
+				new TestModelEconomic(LocalDate.now()),
+				new TestModelEconomic(LocalDate.now().plusDays(1)),
+				new TestModelEconomic(LocalDate.now().plusDays(2)),
+				new TestModelEconomic(LocalDate.now().plusDays(3))
+
 		);
-
-
-		total.setCellValueFactory(new PropertyValueFactory<>("total"));
 
 		total.setCellFactory(currencyFormatFactory);
 		income.setCellFactory(currencyFormatFactory);
 		expense.setCellFactory(currencyFormatFactory);
+		total.setCellValueFactory(new PropertyValueFactory<>("total"));
 		income.setCellValueFactory(new PropertyValueFactory<>("income"));
 		expense.setCellValueFactory(new PropertyValueFactory<>("expense"));
 		date.setCellValueFactory(new PropertyValueFactory<>("date"));
-
-		overView.setItems(data);
 
 		data.get(0).setIncome(100);
 		data.get(1).setIncome(50);
 		data.get(2).setIncome(475);
 		data.get(3).setIncome(178);
-		data.get(4).setIncome(5);
 		data.get(0).setExpense(433);
 		data.get(1).setExpense(987);
 		data.get(2).setExpense(45);
 		data.get(3).setExpense(17);
 
-
-
-
+		overView.setItems(data);
+		incomeChart.getData().add(series);
+		setData(data);
 	}
 	public long getMinutes() {
 		return minutes.get();
@@ -128,7 +128,24 @@ public class EconomicViewController {
 		return data;
 	}
 
+	private void populateSeries(ObservableList<TestModelEconomic> data) {
+		LineChart.Series<String, Number> series = new LineChart.Series<>();
+
+		for (TestModelEconomic d : data) {
+			series.getData().add(new XYChart.Data<>(d.getDate().toString(), d.getTotal()));
+		}
+
+		incomeChart.getData().add(series);
+		this.series = series;
+	}
+
 	public void setData(ObservableList<TestModelEconomic> data) {
 		this.data = data;
+
+		this.data.addListener((ListChangeListener<? super TestModelEconomic>) observable -> {
+			populateSeries(data);
+		});
+
+		populateSeries(data);
 	}
 }
