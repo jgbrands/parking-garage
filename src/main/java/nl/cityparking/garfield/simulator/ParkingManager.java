@@ -1,9 +1,11 @@
 package nl.cityparking.garfield.simulator;
 
 import nl.cityparking.garfield.simulator.agent.Agent;
+import nl.cityparking.garfield.simulator.config.GarageLayout;
 import nl.cityparking.garfield.simulator.parking.ParkingFloor;
 import nl.cityparking.garfield.simulator.parking.ParkingLot;
 import nl.cityparking.garfield.simulator.parking.ParkingSpace;
+import nl.cityparking.garfield.simulator.parking.ParkingSpaceType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,38 +32,20 @@ public class ParkingManager {
 	private ForkJoinPool pool = ForkJoinPool.commonPool();
 	private boolean useThreading = false;
 
-	/**
-	 * Adds a floor to the parking garage. Leaving lots and lotSize zero will add an empty floor can be configured as
-	 * desired.
-	 *
-	 * @param lots The amount of parking lots on the floor.
-	 * @param lotSize The size of each lot on the floor.
-	 * @return The added ParkingFloor.
-	 */
-	public ParkingFloor addFloor(int lots, int lotSize) {
-		ParkingFloor floor = new ParkingFloor(lots, lotSize);
-		floors.add(floor);
-		return floor;
-	}
+	public void generateFromLayout(GarageLayout garageLayout) {
+		for (GarageLayout.ParkingFloorLayout floorLayout: garageLayout.floorLayouts) {
+			ParkingFloor floor = new ParkingFloor();
 
-	/**
-	 * Adds multiple new floors to the parking garage. Leaving lots and lotSize zero will add empty floors that can be
-	 * configured as desired.
-	 *
-	 * @param count The amount of floors to add.
-	 * @param lots The amount of lots to add to each floor.
-	 * @param lotSize The size of each lot to add to the floor.
-	 * @return A collection of the added floors.
-	 */
-	public Collection<ParkingFloor> addFloors(int count, int lots, int lotSize) {
-		ArrayList<ParkingFloor> newFloors = new ArrayList<>();
+			for (GarageLayout.ParkingLotLayout lotLayout: floorLayout.lotLayouts) {
+				ParkingLot lot = new ParkingLot();
+				lot.addSpaces(lotLayout.openSpaces, ParkingSpaceType.OPEN);
+				lot.addSpaces(lotLayout.passholderSpaces, ParkingSpaceType.PASS_HOLDER_ONLY);
+				lot.addSpaces(lotLayout.disabledParkingSpaces, ParkingSpaceType.DISABLED_ONLY);
+				floor.addLot(lot);
+			}
 
-		for (int i = 0; i < count; i++) {
-			newFloors.add(new ParkingFloor(lots, lotSize));
+			floors.add(floor);
 		}
-
-		floors.addAll(newFloors);
-		return newFloors;
 	}
 
 	/**

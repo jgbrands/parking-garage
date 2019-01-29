@@ -11,7 +11,10 @@ import java.util.ArrayList;
 public class Configuration implements Serializable {
 	@XmlElementWrapper(name = "spawnRatios")
 	@XmlElement(name = "ratio")
-	public ArrayList<SpawnRatio> spawnRatios;
+	public ArrayList<SpawnRatio> spawnRatios = null;
+
+	@XmlElement(name = "GarageLayout")
+	public GarageLayout garageLayout = null;
 
 	public Configuration() {
 		super();

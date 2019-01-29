@@ -14,6 +14,10 @@ public class ParkingSpace {
 	private long occupiedUntil = -1;
 	private ParkingSpaceType spaceType = ParkingSpaceType.OPEN;
 
+	public ParkingSpace(ParkingSpaceType type) {
+		this.spaceType = type;
+	}
+
 	/**
 	 * Checks if the ParkingSpace is occupied or not.
 	 *
@@ -73,6 +77,10 @@ public class ParkingSpace {
 	 */
 	public ParkingSpaceType getSpaceType() {
 		return spaceType;
+	}
+
+	public void setSpaceType(ParkingSpaceType spaceType) {
+		this.spaceType = spaceType;
 	}
 
 	public long getOccupiedOn() {

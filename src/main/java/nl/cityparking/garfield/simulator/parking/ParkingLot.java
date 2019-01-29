@@ -2,7 +2,6 @@ package nl.cityparking.garfield.simulator.parking;
 
 import nl.cityparking.garfield.simulator.Arrival;
 import nl.cityparking.garfield.simulator.Departure;
-import nl.cityparking.garfield.simulator.agent.Agent;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,46 +15,11 @@ import java.util.TreeSet;
  */
 public class ParkingLot {
 	private ArrayList<ParkingSpace> spaces = new ArrayList<>();
-	private TreeSet<Integer> freeSpaces = new TreeSet<>();
+	private TreeSet<Integer> freeOpenSpaces = new TreeSet<>();
+	private TreeSet<Integer> freePassSpaces = new TreeSet<>();
+	private TreeSet<Integer> freeDisabledSpaces = new TreeSet<>();
 
 	private int rows = 2;
-
-	/**
-	 * Initializes a new ParkingLot. Supply zero to the spaces argument creates a lot with no spaces.
-	 *
-	 * @param spaces The amount of spaces to create. Spaces must be divisable by two
-	 */
-	public ParkingLot(int spaces) {
-		this(spaces, 2);
-	}
-
-	public ParkingLot(int spaces, int rows) {
-		this.rows = rows;
-		assert (spaces % rows == 0);
-		resize(spaces);
-	}
-
-	/**
-	 * Resizes the parking lot, adding or removing new parking spaces. This
-	 * method will fail if the size of the lot is reduced, while there are
-	 * still occupied spots within the range that is being resized.
-	 * @param size The desired, new size of the parking lot.
-	 */
-	public void resize(int size) {
-		if (size > spaces.size()) {
-			for (int i = spaces.size(); i < size; i++) {
-				this.spaces.add(new ParkingSpace());
-				this.freeSpaces.add(i);
-			}
-		} else if (getLastOccupiedSpace() < size) {
-			// These spaces are guaranteed to be free.
-			for (int i = size; i < spaces.size(); i++) {
-				this.freeSpaces.remove(i);
-			}
-
-			spaces.subList(size, spaces.size()).clear();
-		}
-	}
 
 	/**
 	 * Gets the index of the last parking spot with an occupant in it.
@@ -75,19 +39,19 @@ public class ParkingLot {
 
 	/**
 	 * Returns the first free parking space.
-	 * @return A ParkingSpace instance that is unoccupied, or null if all spaces are occupied.
+	 * @return index of the free space, or -1 if all spaces are occupied.
 	 */
 	private synchronized int popFirstFreeSpaceIndex() {
-		while (freeSpaces.size() > 0) {
-			int freeIndex = freeSpaces.first();
+		while (freeOpenSpaces.size() > 0) {
+			int freeIndex = freeOpenSpaces.first();
 			ParkingSpace space = spaces.get(freeIndex);
 
 			if (space.isOccupied()) {
 				// This is odd, but we can correct our mistake here.
 				// TODO: Maybe throw an exception instead?
-				freeSpaces.remove(freeIndex);
+				freeOpenSpaces.remove(freeIndex);
 			} else {
-				freeSpaces.remove(freeIndex);
+				freeOpenSpaces.remove(freeIndex);
 				return freeIndex;
 			}
 		}
@@ -111,7 +75,7 @@ public class ParkingLot {
 	 */
 	public synchronized Departure freeSpace(ParkingSpace space) {
 		int index = spaces.indexOf(space);
-		freeSpaces.add(index);
+		freeOpenSpaces.add(index);
 
 		Departure departure = new Departure(space.getOccupant(), space.getOccupiedUntil() - space.getOccupiedOn(), 0);
 		space.free();
@@ -132,7 +96,7 @@ public class ParkingLot {
 	 * @return The amount of occupied spaces.
 	 */
 	public int getAmountOfOccupants() {
-		return spaces.size() - freeSpaces.size();
+		return spaces.size() - freeOpenSpaces.size();
 	}
 
 	/**
@@ -140,7 +104,7 @@ public class ParkingLot {
 	 * @return The amount of free spaces.
 	 */
 	public int getAmountOfFreeSpaces() {
-		return freeSpaces.size();
+		return freeOpenSpaces.size();
 	}
 
 	/**
@@ -172,5 +136,26 @@ public class ParkingLot {
 	 */
 	public Collection<ParkingSpace> getSpaces() {
 		return spaces;
+	}
+
+	public void addSpaces(int count, ParkingSpaceType type) {
+		int from = spaces.size();
+		for (int i = 0; i < count; i++) {
+			spaces.add(new ParkingSpace(type));
+
+			switch (type) {
+				case OPEN:
+					freeOpenSpaces.add(from++);
+					break;
+
+				case PASS_HOLDER_ONLY:
+					freePassSpaces.add(from++);
+					break;
+
+				case DISABLED_ONLY:
+					freeDisabledSpaces.add(from++);
+					break;
+			}
+		}
 	}
 }

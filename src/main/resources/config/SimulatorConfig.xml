@@ -9,4 +9,36 @@
 		<ratio weekdayIndex="5" base="0.5" factor="1.3" variance="2" peakMean="-0.8" peakStandardDeviation="1.55" />
 		<ratio weekdayIndex="6" base="0" factor="0.6" variance="1" peakMean="-0.8" peakStandardDeviation="1.25" />
 	</spawnRatios>
+
+	<GarageLayout>
+		<Floors>
+			<GarageFloor>
+				<ParkingLots>
+					<ParkingLot passholderSpaces="30" disabledParkingSpaces="10" />
+					<ParkingLot passholderSpaces="30" disabledParkingSpaces="10" />
+					<ParkingLot passholderSpaces="40" />
+					<ParkingLot passholderSpaces="40" />
+					<ParkingLot passholderSpaces="40" />
+				</ParkingLots>
+			</GarageFloor>
+			<GarageFloor>
+				<ParkingLots>
+					<ParkingLot openSpaces="40" />
+					<ParkingLot openSpaces="40" />
+					<ParkingLot openSpaces="40" />
+					<ParkingLot openSpaces="40" />
+					<ParkingLot openSpaces="40" />
+				</ParkingLots>
+			</GarageFloor>
+			<GarageFloor>
+				<ParkingLots>
+					<ParkingLot openSpaces="40" />
+					<ParkingLot openSpaces="40" />
+					<ParkingLot openSpaces="40" />
+					<ParkingLot openSpaces="40" />
+					<ParkingLot openSpaces="40" />
+				</ParkingLots>
+			</GarageFloor>
+		</Floors>
+	</GarageLayout>
 </configuration>

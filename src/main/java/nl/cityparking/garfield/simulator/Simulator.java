@@ -1,12 +1,8 @@
 package nl.cityparking.garfield.simulator;
 
-import nl.cityparking.garfield.simulator.agent.Agent;
 import nl.cityparking.garfield.simulator.config.Configuration;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Simulator is an abstraction of a parking garage. It's the primary controller of all the happenings in the simulator
@@ -19,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @since 1.0
  */
 public class Simulator implements Runnable {
-	private Configuration conf;
+	private Configuration configuration;
     private SimulatorTime simulationTime;
     private AgentManager agentManager = new AgentManager();
     private ArrivalManager arrivalManager = new ArrivalManager();
@@ -35,7 +31,7 @@ public class Simulator implements Runnable {
 	 * @param configuration Configuration object with settings to be used by the simulator runtime.
 	 */
 	public Simulator(Configuration configuration) {
-		conf = configuration;
+		this.configuration = configuration;
 
 		simulationTime = new SimulatorTime(1);
 		simulationTime.setOnTick(this::onTick);
@@ -44,8 +40,7 @@ public class Simulator implements Runnable {
 		simulationTime.setOnDayPassed(this::onDayPassed);
 		simulationTime.setOnWeekPassed(this::onWeekPassed);
 
-		// TODO: Allow the layout of the garage to be configured.
-		parkingManager.addFloors(3, 5, 40);
+		parkingManager.generateFromLayout(this.configuration.garageLayout);
 	}
 
 	/**

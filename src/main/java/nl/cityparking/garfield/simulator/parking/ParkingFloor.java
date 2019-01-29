@@ -14,28 +14,6 @@ public class ParkingFloor {
 	private ArrayList<ParkingLot> parkingLots = new ArrayList<>();
 
 	/**
-	 * Creates a new ParkingFloor. Setting count to zero will initialize an empty floor.
-	 *
-	 * @param count The amount of lots.
-	 * @param lotSize The size of each lot.
-	 */
-	public ParkingFloor(int count, int lotSize) {
-		addLots(count, lotSize);
-	}
-
-	/**
-	 * Adds new lots to the ParkingFloor. Supplying zero as the lotSize creates an empty lot.
-	 *
-	 * @param count The amount of lots to add.
-	 * @param lotSize The size of each lot.
-	 */
-	public void addLots(int count, int lotSize) {
-		for (int i = 0; i < count; i++) {
-			parkingLots.add(new ParkingLot(lotSize));
-		}
-	}
-
-	/**
 	 * Retrieves the ParkingLots associated with this floor.
 	 * @return The ParkingLots on this floor.
 	 */
@@ -65,5 +43,9 @@ public class ParkingFloor {
 		return parkingLots.stream()
 				.mapToLong(ParkingLot::getAmountOfFreeSpaces)
 				.sum();
+	}
+
+	public void addLot(ParkingLot lot) {
+		parkingLots.add(lot);
 	}
 }
