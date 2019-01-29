@@ -1,5 +1,8 @@
 package nl.cityparking.garfield.simulator.economy;
 
+import nl.cityparking.garfield.simulator.Arrival;
+import nl.cityparking.garfield.simulator.agent.Agent;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -11,7 +14,7 @@ import java.util.Collection;
 public class Economy {
 	private static final long HOURLY_PRICE = 2;
 	private static final long PASS_HOURLY_PRICE = 1;
-	private static final long WEEKLY_PASS = 10;
+	private static final long WEEKLY_PASS = 50;
 
 	private long funds = 0;
 	private Report dailyReport = new Report(0);
@@ -37,7 +40,14 @@ public class Economy {
 	 * @return ticket (price to be paid by passholder)
 	 */
 	public long calculatePassholderTicket(long minutes) {
-		return minutes/60 * PASS_HOURLY_PRICE;
+		long amountToPay = minutes/60 * PASS_HOURLY_PRICE;
+		dailyReport.addPayment(amountToPay);
+		return amountToPay;
+	}
+
+	public void buyNewPass(Agent agent) {
+		agent.setWealth(agent.getWealth() - WEEKLY_PASS);
+		dailyReport.addPayment(WEEKLY_PASS);
 	}
 
 	/**
@@ -48,6 +58,10 @@ public class Economy {
 	 */
 	public long calculateFine(long minutes) {
 		return 10 + (minutes);
+	}
+
+	public long getPassPrice() {
+		return WEEKLY_PASS;
 	}
 
 	/**

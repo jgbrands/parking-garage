@@ -1,12 +1,8 @@
 package nl.cityparking.garfield.simulator;
 
-import nl.cityparking.garfield.simulator.agent.Agent;
 import nl.cityparking.garfield.simulator.config.Configuration;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Simulator is an abstraction of a parking garage. It's the primary controller of all the happenings in the simulator
@@ -80,6 +76,7 @@ public class Simulator implements Runnable {
     	Collection<Arrival> arrivals = arrivalManager.getArrivals(simulationTime.getMinutesPassed());
     	for (Arrival arrival: arrivals) {
     		if (parkingManager.handleArrival(arrival)) {
+    			economyManager.processArrival(arrival);
     			carsIn++;
 		    }
 	    }
