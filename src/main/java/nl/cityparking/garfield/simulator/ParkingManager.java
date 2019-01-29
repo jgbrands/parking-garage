@@ -30,7 +30,7 @@ public class ParkingManager {
 	private ArrayList<ParkingFloor> floors = new ArrayList<>();
 
 	private ForkJoinPool pool = ForkJoinPool.commonPool();
-	private boolean useThreading = false;
+	private boolean useThreading = true;
 
 	public void generateFromLayout(GarageLayout garageLayout) {
 		for (GarageLayout.ParkingFloorLayout floorLayout: garageLayout.floorLayouts) {
