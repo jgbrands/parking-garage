@@ -75,6 +75,7 @@ public class Simulator implements Runnable {
     	Collection<Arrival> arrivals = arrivalManager.getArrivals(simulationTime.getMinutesPassed());
     	for (Arrival arrival: arrivals) {
     		if (parkingManager.handleArrival(arrival)) {
+    			economyManager.processArrival(arrival);
     			carsIn++;
 		    }
 	    }

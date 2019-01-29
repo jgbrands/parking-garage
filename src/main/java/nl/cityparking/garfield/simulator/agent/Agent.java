@@ -5,12 +5,12 @@ package nl.cityparking.garfield.simulator.agent;
  * simulator is most easily represented as a person. For the sake of the
  * simulation engine however, this is irrelevant. Thus the agent can be thought
  * of as a more abstract thing.
- *
+ * <p>
  * Agents have agency, in this sense represented as their behaviour. Their
  * behaviour decides for example how likely they are to have a parking pass
  * and for how long they will park their car, and when they are most likely to
  * spawn (arrive) at the garage. But also where they park their car, and how.
- *
+ * <p>
  * Agents are the lifeblood of the simulator. Almost all logic depends on them
  * in some way, they are what makes everything move and seem 'alive.'
  *
@@ -21,12 +21,14 @@ public class Agent {
 	private final String firstName;
 	private final String lastName;
 	private Employment employment = null;
-	private long wealth = 500; //every agent starts off with this amount of money
+	private long wealth = 500;
+	private ParkingPass parkingPass = null;
 
 	/**
 	 * Initializes a new Agent
+	 *
 	 * @param firstName The first name of the Agent.
-	 * @param lastName The last name of the Agent.
+	 * @param lastName  The last name of the Agent.
 	 */
 	public Agent(String firstName, String lastName) {
 		this.firstName = firstName;
@@ -35,6 +37,7 @@ public class Agent {
 
 	/**
 	 * Returns the full name of the Agent.
+	 *
 	 * @return The full name.
 	 */
 	public String getName() {
@@ -43,6 +46,7 @@ public class Agent {
 
 	/**
 	 * Gets the first name of the Agent.
+	 *
 	 * @return The first name of the Agent.
 	 */
 	public String getFirstName() {
@@ -51,6 +55,7 @@ public class Agent {
 
 	/**
 	 * Gets the last name of the Agent.
+	 *
 	 * @return The last name of the Agent.
 	 */
 	public String getLastName() {
@@ -59,6 +64,7 @@ public class Agent {
 
 	/**
 	 * Sets the employment of this Agent, replacing it for whatever old employment it had.
+	 *
 	 * @param employment The Employment to assign to this agent. Null to make the Agent unemployed.
 	 */
 	public void setEmployment(Employment employment) {
@@ -67,6 +73,7 @@ public class Agent {
 
 	/**
 	 * Gets the Agent's employment.
+	 *
 	 * @return The Employment of the Agent, or null if unemployed.
 	 */
 	public Employment getEmployment() {
@@ -75,6 +82,7 @@ public class Agent {
 
 	/**
 	 * Gets the Agent's employment status.
+	 *
 	 * @return true for employed, false for unemployed.
 	 */
 	public boolean isEmployed() {
@@ -84,25 +92,42 @@ public class Agent {
 
 	/**
 	 * method to get the agent's wealth
+	 *
 	 * @return long type containing the agent's wealth
 	 */
-	public long getWealth() { return wealth; }
+	public long getWealth() {
+		return wealth;
+	}
 
 	/**
 	 * method to set the agent's wealth
 	 *
 	 * @param newWealth, the new amount of wealth to be set for the agent.
-	 *
 	 */
 
-	public void setWealth(long newWealth) { wealth = newWealth; }
+	public void setWealth(long newWealth) {
+		wealth = newWealth;
+	}
 
 	/**
 	 * updates the agent's wealth
-	 *
+	 * <p>
 	 * this method is weekly invoked by the arrivalmanager to give the agents their income
 	 */
-	public void updateWealth () {
+	public void updateWealth() {
 		wealth += 1000;
 	}
+
+	public ParkingPass getParkingPass() {
+		return parkingPass;
+	}
+
+	public void setParkingPass(ParkingPass parkingPass) {
+		this.parkingPass = parkingPass;
+	}
+
+	public boolean hasParkingPass() {
+		return parkingPass != null;
+	}
+
 }

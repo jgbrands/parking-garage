@@ -2,10 +2,12 @@ package nl.cityparking.garfield.simulator;
 
 import nl.cityparking.garfield.simulator.agent.Agent;
 import nl.cityparking.garfield.simulator.agent.AgentGenerator;
+import nl.cityparking.garfield.simulator.agent.ParkingPass;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * AgentManager handles the generation, modification and querying of Agents in the Simulation. All their logic and
