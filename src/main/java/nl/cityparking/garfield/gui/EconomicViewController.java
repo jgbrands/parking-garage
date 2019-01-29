@@ -1,7 +1,6 @@
 package nl.cityparking.garfield.gui;
 
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +14,10 @@ import nl.cityparking.garfield.simulator.economy.Report;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 
+/**
+ * Creates the economic overview part of the interface.
+ * @author Allard, Karlien
+ */
 public class EconomicViewController {
 	public LineChart<String, Number> incomeChart;
 	public TextField inputField;
@@ -25,7 +28,6 @@ public class EconomicViewController {
 	private LineChart.Series<String, Number> expensesSeries = new LineChart.Series<>();
 	private LineChart.Series<String, Number> totalSeries = new LineChart.Series<>();
 
-	private LongProperty minutes = new SimpleLongProperty();
 	private LongProperty carsIn = new SimpleLongProperty();
 	private LongProperty carsOut = new SimpleLongProperty();
 	private ObservableList<Report> data;
@@ -43,7 +45,10 @@ public class EconomicViewController {
 		}
 	};
 
-
+	/**
+	 * Initializes the economic overview.
+	 * Sets the standard data in the graph and table.
+	 */
 	@FXML
 	private void initialize() {
 		TableColumn<Report, Number> total = new TableColumn<>("Total");
@@ -71,30 +76,32 @@ public class EconomicViewController {
 		incomeChart.getData().add(expensesSeries);
 		incomeChart.getData().add(totalSeries);
 	}
-	public long getMinutes() {
-		return minutes.get();
-	}
 
-	public LongProperty minutesProperty() {
-		return minutes;
-	}
-
-	public void setMinutes(long minutes) {
-		this.minutes.set(minutes);
-	}
-
+	/**
+	 * @return The amount of cars that get in to the garage
+	 */
 	public long getCarsIn() {
 		return carsIn.get();
 	}
 
+	/**
+	 * @return The amount of cars that get in to the garage
+	 */
 	public LongProperty carsInProperty() {
 		return carsIn;
 	}
 
+	/**
+	 * Sets the amount of cars that get into the garage
+	 * @param carsIn
+	 */
 	public void setCarsIn(long carsIn) {
 		this.carsIn.set(carsIn);
 	}
 
+	/**
+	 * @return The amount of cars that get out of the garage
+	 */
 	public long getCarsOut() {
 		return carsOut.get();
 	}
@@ -103,14 +110,25 @@ public class EconomicViewController {
 		return carsOut;
 	}
 
+	/**
+	 * Sets the amount of cars that get out of the garage
+	 * @param carsOut
+	 */
 	public void setCarsOut(long carsOut) {
 		this.carsOut.set(carsOut);
 	}
 
+	/**
+	 * @return The data stored in the list: Report
+	 */
 	public ObservableList<Report> getData() {
 		return data;
 	}
 
+	/**
+	 * Sets the data into the Report list. This function listens to the list to see if there has changed anything, if yes, it will update the view of economics.
+	 * @param data
+	 */
 	public void setData(ObservableList<Report> data) {
 		this.data = data;
 		overView.setItems(this.data);
