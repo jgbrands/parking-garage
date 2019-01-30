@@ -1,6 +1,7 @@
 package nl.cityparking.garfield.simulator;
 
 import nl.cityparking.garfield.simulator.config.Configuration;
+import nl.cityparking.garfield.simulator.parking.CarQueue;
 
 import java.util.Collection;
 
@@ -21,10 +22,12 @@ public class Simulator implements Runnable {
     private ArrivalManager arrivalManager = new ArrivalManager();
     private ParkingManager parkingManager = new ParkingManager();
     private EconomyManager economyManager = new EconomyManager();
+    private CarQueue carQueue = new CarQueue();
 
     private boolean stopping = false;
     private long carsIn = 0;
     private long carsOut = 0;
+    private long queueSize = 0;
 
 	/**
 	 * Initializes the Simulator and prepares it for runtime.
@@ -77,11 +80,17 @@ public class Simulator implements Runnable {
 	    // Phase two, get arrivals:
     	Collection<Arrival> arrivals = arrivalManager.getArrivals(simulationTime.getMinutesPassed());
     	for (Arrival arrival: arrivals) {
+		    carQueue.addToQueue(arrival);
+	    }
+    	Collection<Arrival> queueArrivals = carQueue.removeFromQueue(4);
+
+    	for(Arrival arrival : queueArrivals) {
     		if (parkingManager.handleArrival(arrival)) {
     			economyManager.processArrival(arrival);
     			carsIn++;
 		    }
 	    }
+    	//System.out.println(carQueue.getQueueLength());
     }
 
 	private void onHourPassed() {
