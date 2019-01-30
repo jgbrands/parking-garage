@@ -55,9 +55,15 @@ public class ParkingManager {
 	 * @return true if the Arrival was processed succesfully, false if it failed.
 	 */
 	public boolean handleArrival(Arrival arrival) {
+		ParkingSpaceType preferredType = ParkingSpaceType.OPEN;
+		
+		if (arrival.agent.hasParkingPass()) {
+			preferredType = ParkingSpaceType.PASS_HOLDER_ONLY;
+		}
+		
 		for (ParkingFloor floor: floors) {
-			if (floor.getFreeSpots() > 0) {
-				floor.parkArrival(arrival);
+			if (floor.getFreeSpots(preferredType) > 0) {
+				floor.parkArrival(arrival, preferredType);
 				return true;
 			}
 		}

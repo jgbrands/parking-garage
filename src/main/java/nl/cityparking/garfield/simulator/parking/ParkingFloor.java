@@ -25,10 +25,10 @@ public class ParkingFloor {
 	 * Processes an Arrival and parks the contained Agent into a ParkingSpace.
 	 * @param arrival The Arrival to process.
 	 */
-	public void parkArrival(Arrival arrival) {
+	public void parkArrival(Arrival arrival, ParkingSpaceType type) {
 		for (ParkingLot lot: parkingLots) {
-			if (lot.getAmountOfFreeSpaces() > 0) {
-				lot.parkArrival(arrival);
+			if (lot.getAmountOfFreeSpaces(type) > 0) {
+				lot.parkArrival(arrival, type);
 				return;
 			}
 		}
@@ -39,9 +39,9 @@ public class ParkingFloor {
 	 *
 	 * @return The amount of empty spaces across all lots.
 	 */
-	public long getFreeSpots() {
+	public long getFreeSpots(ParkingSpaceType type) {
 		return parkingLots.stream()
-				.mapToLong(ParkingLot::getAmountOfFreeSpaces)
+				.mapToLong(lot -> lot.getAmountOfFreeSpaces(type))
 				.sum();
 	}
 

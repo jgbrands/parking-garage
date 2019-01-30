@@ -41,19 +41,11 @@ public class ParkingLot {
 	 * Returns the first free parking space.
 	 * @return index of the free space, or -1 if all spaces are occupied.
 	 */
-	private synchronized int popFirstFreeSpaceIndex() {
-		while (freeOpenSpaces.size() > 0) {
-			int freeIndex = freeOpenSpaces.first();
-			ParkingSpace space = spaces.get(freeIndex);
-
-			if (space.isOccupied()) {
-				// This is odd, but we can correct our mistake here.
-				// TODO: Maybe throw an exception instead?
-				freeOpenSpaces.remove(freeIndex);
-			} else {
-				freeOpenSpaces.remove(freeIndex);
-				return freeIndex;
-			}
+	private synchronized int popFirstFreeIndex(TreeSet<Integer> spacesSet) {
+		if (spacesSet.size() > 0) {
+			int freeIndex = spacesSet.first();
+			spacesSet.remove(freeIndex);
+			return freeIndex;
 		}
 
 		return -1;
@@ -63,9 +55,26 @@ public class ParkingLot {
 	 * Processes an arrival and parks it into this spot.
 	 * @param arrival The Arrival to park.
 	 */
-	public synchronized void parkArrival(Arrival arrival) {
-		int index = popFirstFreeSpaceIndex();
-		spaces.get(index).setOccupant(arrival.agent, arrival.arrivalMinute, arrival.departureMinute);
+	public synchronized void parkArrival(Arrival arrival, ParkingSpaceType type) {
+		int index = -1;
+		
+		switch (type) {
+			case PASS_HOLDER_ONLY:
+				index = popFirstFreeIndex(freePassSpaces);
+				break;
+				
+			case DISABLED_ONLY:
+				index = popFirstFreeIndex(freeDisabledSpaces);
+				break;
+				
+			default:
+				index = popFirstFreeIndex(freeOpenSpaces);
+				break;
+		}
+		
+		if (index != -1) {
+			spaces.get(index).setOccupant(arrival.agent, arrival.arrivalMinute, arrival.departureMinute);
+		}
 	}
 
 	/**
@@ -75,8 +84,21 @@ public class ParkingLot {
 	 */
 	public synchronized Departure freeSpace(ParkingSpace space) {
 		int index = spaces.indexOf(space);
-		freeOpenSpaces.add(index);
-
+		
+		switch (space.getSpaceType()) {
+			case PASS_HOLDER_ONLY:
+				freePassSpaces.add(index);
+				break;
+				
+			case DISABLED_ONLY:
+				freeDisabledSpaces.add(index);
+				break;
+				
+			default:
+				freeOpenSpaces.add(index);
+				break;
+		}
+		
 		Departure departure = new Departure(space.getOccupant(), space.getOccupiedUntil() - space.getOccupiedOn(), 0);
 		space.free();
 
@@ -103,7 +125,15 @@ public class ParkingLot {
 	 * Gets the amount of empty ParkingSpaces in this ParkingLot.
 	 * @return The amount of free spaces.
 	 */
-	public int getAmountOfFreeSpaces() {
+	public int getAmountOfFreeSpaces(ParkingSpaceType type) {
+		switch (type) {
+			case PASS_HOLDER_ONLY:
+				return freePassSpaces.size();
+				
+			case DISABLED_ONLY:
+				return freeDisabledSpaces.size();
+		}
+		
 		return freeOpenSpaces.size();
 	}
 
