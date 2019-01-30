@@ -16,6 +16,9 @@ public class Configuration implements Serializable {
 	@XmlElement(name = "GarageLayout")
 	public GarageLayout garageLayout = null;
 
+	@XmlElement(name = "EconomyConfiguration")
+	public EconomyConfiguration economyConfiguration = null;
+
 	public Configuration() {
 		super();
 
