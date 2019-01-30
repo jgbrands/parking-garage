@@ -41,7 +41,7 @@ public class AgentManager {
 						break;
 					}
 					
-					long dayFactor = (workDay.day != 0) ? workDay.day : dayIndex;
+					long dayFactor = (workDay.day != 0) ? workDay.day - 1 : dayIndex;
 					position.getSchedule().addWorkingHours(new Schedule.Entry(
 							workDay.start + 24 * dayFactor,
 							workDay.end + 24 * dayFactor
