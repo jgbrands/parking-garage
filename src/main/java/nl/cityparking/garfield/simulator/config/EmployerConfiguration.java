@@ -25,6 +25,9 @@ public class EmployerConfiguration {
 
 
 	public static class WorkDay {
+		@XmlAttribute(name = "day")
+		public long day = 0;
+		
 		@XmlAttribute(name = "start")
 		public long start = 0;
 

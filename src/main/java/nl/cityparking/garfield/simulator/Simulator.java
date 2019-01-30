@@ -82,15 +82,14 @@ public class Simulator implements Runnable {
     	for (Arrival arrival: arrivals) {
 		    carQueue.addToQueue(arrival);
 	    }
+    	
     	Collection<Arrival> queueArrivals = carQueue.removeFromQueue(4);
-
     	for(Arrival arrival : queueArrivals) {
     		if (parkingManager.handleArrival(arrival)) {
     			economyManager.processArrival(arrival);
     			carsIn++;
 		    }
 	    }
-    	//System.out.println(carQueue.getQueueLength());
     }
 
 	private void onHourPassed() {

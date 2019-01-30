@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class CarQueue {
-
 	private static final int MAX_QUEUE_LENGTH = 50;
 	private LinkedList<Arrival> carQueue = new LinkedList<>();
 
@@ -18,14 +17,16 @@ public class CarQueue {
 	}
 
 	public Collection<Arrival> removeFromQueue(int amount) {
-		if (carQueue.size() > 0) {
-			Collection<Arrival> arrivals = carQueue.subList(0, (carQueue.size() >= amount) ? amount : carQueue.size());
-			carQueue.removeAll(arrivals);
-			return arrivals;
+		ArrayList<Arrival> arrivals = new ArrayList<>();
+		
+		for (int i = 0; i < amount; i++) {
+			if (carQueue.size() == 0) {
+				break;
+			}
+			
+			arrivals.add(carQueue.pop());
 		}
-		return new ArrayList<>();
+		
+		return arrivals;
 	}
-
-
-
 }

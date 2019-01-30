@@ -35,9 +35,20 @@ public class AgentManager {
 				Position position = new Position(positionConfig.name);
 				position.setTotalVacancies(positionConfig.vacancies);
 				
-				positionConfig.workdays.stream()
-						.map(day -> new Schedule.Entry(day.start, day.end))
-						.forEach(entry -> position.getSchedule().addWorkingHours(entry));
+				int dayIndex = 0;
+				for (EmployerConfiguration.WorkDay workDay: positionConfig.workdays) {
+					if (dayIndex >= 7) {
+						break;
+					}
+					
+					long dayFactor = (workDay.day != 0) ? workDay.day : dayIndex;
+					position.getSchedule().addWorkingHours(new Schedule.Entry(
+							workDay.start + 24 * dayFactor,
+							workDay.end + 24 * dayFactor
+					));
+					
+					dayIndex++;
+				}
 				
 				employer.getPositions().add(position);
 			}
