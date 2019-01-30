@@ -9,26 +9,6 @@ import java.util.ArrayList;
 
 @XmlRootElement(name = "configuration")
 public class Configuration implements Serializable {
-	@XmlElementWrapper(name = "spawnRatios")
-	@XmlElement(name = "ratio")
-	public ArrayList<SpawnRatio> spawnRatios = null;
-
 	@XmlElement(name = "GarageLayout")
 	public GarageLayout garageLayout = null;
-
-	public Configuration() {
-		super();
-
-		this.spawnRatios = new ArrayList<>();
-	}
-
-	public SpawnRatio getSpawnRatio(long dayOfWeek) {
-		for (SpawnRatio ratio : this.spawnRatios) {
-			if (ratio.index == dayOfWeek) {
-				return ratio;
-			}
-		}
-
-		return null;
-	}
 }

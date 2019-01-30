@@ -2,6 +2,7 @@ package nl.cityparking.garfield.simulator;
 
 import nl.cityparking.garfield.simulator.agent.Agent;
 import nl.cityparking.garfield.simulator.agent.AgentGenerator;
+import nl.cityparking.garfield.simulator.agent.Employer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +19,7 @@ import java.util.Comparator;
  */
 public class AgentManager {
 	private AgentGenerator generator = new AgentGenerator();
+	private ArrayList<Employer> employers = new ArrayList<>();
 	private ArrayList<Agent> agents = new ArrayList<>();
 	private ArrayList<Agent> commuters = new ArrayList<>();
 

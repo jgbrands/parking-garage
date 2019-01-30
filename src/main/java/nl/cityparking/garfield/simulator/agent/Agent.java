@@ -1,7 +1,5 @@
 package nl.cityparking.garfield.simulator.agent;
 
-import java.util.ArrayList;
-
 /**
  * Agent is the most granular object that is simulated. An agent in the
  * simulator is most easily represented as a person. For the sake of the
@@ -128,7 +126,7 @@ public class Agent {
 		return employment != null;
 	}
 	
-	public ArrayList<Schedule> getSchedule() {
+	public Schedule getSchedule() {
 		return employment.position.getSchedule();
 	}
 }

@@ -57,20 +57,7 @@ public class AgentGenerator {
 				? FEMALE_FIRST_NAMES[ThreadLocalRandom.current().nextInt(0, FEMALE_FIRST_NAMES.length)]
 				: MALE_FIRST_NAMES[ThreadLocalRandom.current().nextInt(0, MALE_FIRST_NAMES.length)];
 		String lastName = LAST_NAMES[ThreadLocalRandom.current().nextInt(0, LAST_NAMES.length)];
-
-		Agent agent = new Agent(firstName, lastName);
-
-		// Generate a 9-to-5, monday to friday job for our good agent.
-		Schedule schedule = new Schedule();
-
-		for (int i = 5; i >= 0; i--) {
-			schedule.addWorkingHours(new Schedule.Entry(
-					ThreadLocalRandom.current().nextInt(7, 13) + i*24,
-					ThreadLocalRandom.current().nextInt(17, 21) + i*24));
-		}
-
-		agent.setSchedule(schedule);
-
-		return agent;
+		
+		return new Agent(firstName, lastName);
 	}
 }

@@ -8,12 +8,10 @@ import java.util.ArrayList;
 
 @XmlRootElement(name = "GarageLayout")
 public class GarageLayout {
-	@XmlElementWrapper(name = "Floors")
 	@XmlElement(name = "GarageFloor")
 	public ArrayList<ParkingFloorLayout> floorLayouts = null;
 
 	public static class ParkingFloorLayout {
-		@XmlElementWrapper(name = "ParkingLots")
 		@XmlElement(name = "ParkingLot")
 		public ArrayList<ParkingLotLayout> lotLayouts = null;
 	}

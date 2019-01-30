@@ -12,34 +12,26 @@
 	</Economy>
 
 	<GarageLayout>
-		<Floors>
-			<GarageFloor>
-				<ParkingLots>
-					<ParkingLot passholderSpaces="30" disabledParkingSpaces="10" />
-					<ParkingLot passholderSpaces="30" disabledParkingSpaces="10" />
-					<ParkingLot passholderSpaces="40" />
-					<ParkingLot passholderSpaces="40" />
-					<ParkingLot passholderSpaces="40" />
-				</ParkingLots>
-			</GarageFloor>
-			<GarageFloor>
-				<ParkingLots>
-					<ParkingLot openSpaces="40" />
-					<ParkingLot openSpaces="40" />
-					<ParkingLot openSpaces="40" />
-					<ParkingLot openSpaces="40" />
-					<ParkingLot openSpaces="40" />
-				</ParkingLots>
-			</GarageFloor>
-			<GarageFloor>
-				<ParkingLots>
-					<ParkingLot openSpaces="40" />
-					<ParkingLot openSpaces="40" />
-					<ParkingLot openSpaces="40" />
-					<ParkingLot openSpaces="40" />
-					<ParkingLot openSpaces="40" />
-				</ParkingLots>
-			</GarageFloor>
-		</Floors>
+		<GarageFloor>
+			<ParkingLot passholderSpaces="30" disabledParkingSpaces="10" />
+			<ParkingLot passholderSpaces="30" disabledParkingSpaces="10" />
+			<ParkingLot passholderSpaces="40" />
+			<ParkingLot passholderSpaces="40" />
+			<ParkingLot passholderSpaces="40" />
+		</GarageFloor>
+		<GarageFloor>
+			<ParkingLot openSpaces="40" />
+			<ParkingLot openSpaces="40" />
+			<ParkingLot openSpaces="40" />
+			<ParkingLot openSpaces="40" />
+			<ParkingLot openSpaces="40" />
+		</GarageFloor>
+		<GarageFloor>
+			<ParkingLot openSpaces="40" />
+			<ParkingLot openSpaces="40" />
+			<ParkingLot openSpaces="40" />
+			<ParkingLot openSpaces="40" />
+			<ParkingLot openSpaces="40" />
+		</GarageFloor>
 	</GarageLayout>
 </configuration>

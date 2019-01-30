@@ -47,8 +47,10 @@ public class ArrivalManager {
 			}
 		}
 
-		arrivals.sort(Comparator.comparingLong(a -> a.arrivalMinute));
-		nextArrival = arrivals.get(0).arrivalMinute;
+		if (!arrivals.isEmpty()) {
+			arrivals.sort(Comparator.comparingLong(a -> a.arrivalMinute));
+			nextArrival = arrivals.get(0).arrivalMinute;
+		}
 	}
 
 	/**

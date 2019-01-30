@@ -7,7 +7,7 @@ public class Position {
 	private double baseHourlyWage = 15.0;
 	private long occupiedVacancies = 0;
 	private long totalVacancies = 0;
-	private ArrayList<Schedule> schedule = new ArrayList<>();
+	private Schedule schedule = new Schedule();
 	
 	public Position(String name) {
 		this.name = name;
@@ -21,11 +21,11 @@ public class Position {
 		this.baseHourlyWage = baseHourlyWage;
 	}
 	
-	public ArrayList<Schedule> getSchedule() {
+	public Schedule getSchedule() {
 		return schedule;
 	}
 	
-	public void setSchedule(ArrayList<Schedule> schedule) {
+	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
 	}
 	
