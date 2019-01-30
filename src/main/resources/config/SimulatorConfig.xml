@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configuration>
-	<Economy>
+	<EconomyConfiguation>
 		<Employers>
 			<Employer name="Dewey, Steel'em and Howe">
 				<Position name="Janitor" vacancies="10">
@@ -9,7 +9,7 @@
 				</Position>
 			</Employer>
 		</Employers>
-	</Economy>
+	</EconomyConfiguation>
 
 	<GarageLayout>
 		<GarageFloor>
