@@ -104,7 +104,6 @@ public class Agent {
 	 *
 	 * @param newWealth, the new amount of wealth to be set for the agent.
 	 */
-
 	public void setWealth(long newWealth) {
 		wealth = newWealth;
 	}
@@ -118,14 +117,26 @@ public class Agent {
 		wealth += 1000;
 	}
 
+	/**
+	 * method to get return the agent's parkingpass
+	 * @return the agent's parkingpass
+	 */
 	public ParkingPass getParkingPass() {
 		return parkingPass;
 	}
 
+	/**
+	 * method to give an agent a parkingpass
+	 * @param parkingPass of type ParkingPass
+	 */
 	public void setParkingPass(ParkingPass parkingPass) {
 		this.parkingPass = parkingPass;
 	}
 
+	/**
+	 * method to check whether the agent has a parkingpass
+	 * @return true/false depending on whether the agent has a parkingpass
+	 */
 	public boolean hasParkingPass() {
 		return parkingPass != null;
 	}

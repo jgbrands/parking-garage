@@ -45,6 +45,12 @@ public class Economy {
 		return amountToPay;
 	}
 
+	/**
+	 * method to make the agent buy a new Weekly pass
+	 * it also adds it to the daily report as it increases the company's icome
+	 *
+	 * @param agent
+	 */
 	public void buyNewPass(Agent agent) {
 		agent.setWealth(agent.getWealth() - WEEKLY_PASS);
 		dailyReport.addPayment(WEEKLY_PASS);
