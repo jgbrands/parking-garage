@@ -45,7 +45,7 @@ public class Simulator implements Runnable {
 
 		parkingManager.generateFromLayout(this.configuration.garageLayout);
 		agentManager.generateEmployers(this.configuration.economyConfiguration.employers);
-		agentManager.generateAgents(100);
+		agentManager.generateAgents(1000);
 		agentManager.allocateJobsToAgents();
 	}
 
