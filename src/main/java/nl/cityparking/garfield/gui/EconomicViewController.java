@@ -4,15 +4,21 @@ import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+import nl.cityparking.garfield.gui.simulator.SetSettingsViewController;
 import nl.cityparking.garfield.simulator.economy.Report;
 
+import java.net.URL;
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Creates the economic overview part of the interface.
@@ -20,17 +26,19 @@ import java.time.LocalDate;
  */
 public class EconomicViewController {
 	public LineChart<String, Number> incomeChart;
-	public TextField inputField;
-	public Button confirmButton;
 	public TableView<Report> overView;
+	public GridPane staticView;
 
 	private LineChart.Series<String, Number> incomeSeries = new LineChart.Series<>();
 	private LineChart.Series<String, Number> expensesSeries = new LineChart.Series<>();
 	private LineChart.Series<String, Number> totalSeries = new LineChart.Series<>();
+	private LineChart.Series<String, Number> incomePassHoldersSeries = new LineChart.Series<>();
+	private LineChart.Series<String, Number> incomeReservationsSeries = new LineChart.Series<>();
 
 	private LongProperty carsIn = new SimpleLongProperty();
 	private LongProperty carsOut = new SimpleLongProperty();
 	private ObservableList<Report> data;
+	private ArrayList<String> parkingSpaces;
 
 	private final static Callback<TableColumn<Report, Number>, TableCell<Report, Number>> currencyFormatFactory = tc -> new TableCell<>() {
 		@Override
@@ -55,26 +63,54 @@ public class EconomicViewController {
 		TableColumn<Report, LocalDate> date = new TableColumn<>("Date");
 		TableColumn<Report, Number> expense = new TableColumn<>("Expenses");
 		TableColumn<Report, Number> income = new TableColumn<>("Income");
+		TableColumn<Report, Number> incomePassHolders = new TableColumn<>("IncomePassHolders");
+		TableColumn<Report, Number> incomeReservations = new TableColumn<>("IncomeReservations");
+		SetSettingsViewController gridpaneFilment = new SetSettingsViewController();
 
 		overView.getColumns().add(date);
 		overView.getColumns().add(expense);
 		overView.getColumns().add(income);
 		overView.getColumns().add(total);
+		overView.getColumns().add(incomePassHolders);
+		overView.getColumns().add(incomeReservations);
 
 		total.setCellFactory(currencyFormatFactory);
 		income.setCellFactory(currencyFormatFactory);
 		expense.setCellFactory(currencyFormatFactory);
+		incomePassHolders.setCellFactory(currencyFormatFactory);
+		incomeReservations.setCellFactory(currencyFormatFactory);
+
 		total.setCellValueFactory(new PropertyValueFactory<>("total"));
 		income.setCellValueFactory(new PropertyValueFactory<>("income"));
 		expense.setCellValueFactory(new PropertyValueFactory<>("expenses"));
 		date.setCellValueFactory(new PropertyValueFactory<>("date"));
+		incomePassHolders.setCellValueFactory(new PropertyValueFactory<>("incomePassHolders"));
+		incomeReservations.setCellValueFactory(new PropertyValueFactory<>("incomeReservations"));
 
 		incomeSeries.setName("Income");
 		expensesSeries.setName("Expenses");
 		totalSeries.setName("Total");
+		incomePassHoldersSeries.setName("income pass holders");
+		incomeReservationsSeries.setName("Income reservations");
+
 		incomeChart.getData().add(incomeSeries);
 		incomeChart.getData().add(expensesSeries);
 		incomeChart.getData().add(totalSeries);
+		incomeChart.getData().add(incomePassHoldersSeries);
+		incomeChart.getData().add(incomeReservationsSeries);
+
+
+
+		try {
+			URL resource = this.getClass().getResource("/views/setSettingsView.fxml");
+			FXMLLoader loader = new FXMLLoader(resource);
+			Pane setSettingsView = loader.load();
+			SetSettingsViewController controller = loader.getController();
+			staticView.add(setSettingsView, 1, 1);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -118,8 +154,22 @@ public class EconomicViewController {
 		this.carsOut.set(carsOut);
 	}
 
+
+
+	public ArrayList<String> getParkingSpaces() {
+		return parkingSpaces;
+	}
+
+	public void setParkingSpaces(ArrayList<String> parkingSpaces) {
+		this.parkingSpaces = parkingSpaces;
+	}
+
+
+
+
+
 	/**
-	 * @return The data stored in the list: Report
+	 * @return The data stored in the list Report
 	 */
 	public ObservableList<Report> getData() {
 		return data;
