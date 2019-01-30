@@ -1,12 +1,11 @@
 package nl.cityparking.garfield.simulator;
 
-import nl.cityparking.garfield.simulator.agent.Agent;
-import nl.cityparking.garfield.simulator.agent.AgentGenerator;
-import nl.cityparking.garfield.simulator.agent.Employer;
+import nl.cityparking.garfield.simulator.agent.*;
+import nl.cityparking.garfield.simulator.config.EmployerConfiguration;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * AgentManager handles the generation, modification and querying of Agents in the Simulation. All their logic and
@@ -21,38 +20,53 @@ public class AgentManager {
 	private AgentGenerator generator = new AgentGenerator();
 	private ArrayList<Employer> employers = new ArrayList<>();
 	private ArrayList<Agent> agents = new ArrayList<>();
-	private ArrayList<Agent> commuters = new ArrayList<>();
-
-	/**
-	 * Initializes the AgentManager
-	 */
-	public AgentManager() {
-		// TODO: This shouldn't be hard coded, of course.
-		for (int i = 0; i < 600; i++) {
-			Agent a = generator.generate();
-			agents.add(a);
-
-			if (a.isEmployed()) {
-				commuters.add(a);
-			}
+	
+	public void generateAgents(int amount) {
+		for (int i = 0; i < amount; i++) {
+			agents.add(generator.generate());
 		}
-
-		commuters.sort(Comparator.comparingLong(a -> a.getSchedule().getNextWorkHour(0).getStartHour()));
 	}
 
+	public void generateEmployers(Collection<EmployerConfiguration> configurations) {
+		for (EmployerConfiguration configuration: configurations) {
+			Employer employer = new Employer(configuration.name);
+			
+			for (EmployerConfiguration.Position positionConfig: configuration.positions) {
+				Position position = new Position(positionConfig.name);
+				position.setTotalVacancies(positionConfig.vacancies);
+				
+				positionConfig.workdays.stream()
+						.map(day -> new Schedule.Entry(day.start, day.end))
+						.forEach(entry -> position.getSchedule().addWorkingHours(entry));
+				
+				employer.getPositions().add(position);
+			}
+			
+			employers.add(employer);
+		}
+	}
+	
+	public void allocateJobsToAgents() {
+		Collection<Agent> unemployedAgents = agents.parallelStream()
+				.filter(a -> !a.isEmployed())
+				.collect(Collectors.toList());
+		
+		for (Agent agent: unemployedAgents) {
+			for (Employer employer: employers) {
+				for (Position position: employer.getPositions()) {
+					if (position.getOpenVacancies() > 0) {
+						employer.employ(agent, position);
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Retrieves the list of all Agents present in the simulation, including inactive ones
 	 * @return Collection of all Agents
 	 */
 	public Collection<Agent> getAgents() {
 		return agents;
-	}
-
-	/**
-	 * Retrieves the list of all Agents that are commuters (people with work), this does not include inactive agents.
-	 * @return Collection of all commuting Agents
-	 */
-	public Collection<Agent> getCommuters() {
-		return commuters;
 	}
 }

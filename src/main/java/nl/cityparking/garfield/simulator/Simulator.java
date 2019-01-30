@@ -41,6 +41,9 @@ public class Simulator implements Runnable {
 		simulationTime.setOnWeekPassed(this::onWeekPassed);
 
 		parkingManager.generateFromLayout(this.configuration.garageLayout);
+		agentManager.generateEmployers(this.configuration.economyConfiguration.employers);
+		agentManager.generateAgents(100);
+		agentManager.allocateJobsToAgents();
 	}
 
 	/**
@@ -89,7 +92,7 @@ public class Simulator implements Runnable {
     }
 
     private void onWeekPassed() {
-    	arrivalManager.generate(agentManager.getCommuters(), simulationTime.getMinutesPassed());
+    	arrivalManager.generate(agentManager.getAgents(), simulationTime.getMinutesPassed());
 
     }
 

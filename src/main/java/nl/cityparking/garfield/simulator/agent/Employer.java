@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Employer {
 	private String name;
-	private ArrayList<Position> positions;
+	private ArrayList<Position> positions = new ArrayList<>();
 	
 	public Employer(String name) {
 		this.name = name;
@@ -33,5 +33,11 @@ public class Employer {
 	
 	public ArrayList<Position> getPositions() {
 		return positions;
+	}
+	
+	public long getOpenVacancies() {
+		return positions.parallelStream()
+				.mapToLong(Position::getOpenVacancies)
+				.sum();
 	}
 }

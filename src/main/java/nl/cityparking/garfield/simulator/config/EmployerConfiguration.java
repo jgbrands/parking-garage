@@ -15,6 +15,9 @@ public class EmployerConfiguration {
 	public static class Position{
 		@XmlAttribute(name = "name")
 		public String name = new String();
+		
+		@XmlAttribute(name = "vacancies")
+		public long vacancies = 0;
 
 		@XmlElement(name = "WorkDay")
 		public ArrayList<WorkDay> workdays = new ArrayList<WorkDay>();

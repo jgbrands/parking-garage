@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configuration>
-	<EconomyConfiguation>
+	<EconomyConfiguration>
 		<Employers>
 			<Employer name="Dewey, Steel'em and Howe">
-				<Position name="Janitor" vacancies="10">
-					<WorkDay start="8" end="16" />
-					<WorkDay start="32" end="40" />
+				<Position name="Janitor" vacancies="5">
+					<WorkDay start="18" end="26" />
+					<WorkDay start="18" end="26" />
+					<WorkDay start="18" end="26" />
+					<WorkDay start="18" end="26" />
+					<WorkDay start="18" end="26" />
+				</Position>
+				<Position name="Office Worker" vacancies="90">
+					<WorkDay start="9" end="17" />
+					<WorkDay start="9" end="17" />
+					<WorkDay start="9" end="17" />
+					<WorkDay start="9" end="17" />
+					<WorkDay start="9" end="17" />
 				</Position>
 			</Employer>
 		</Employers>
-	</EconomyConfiguation>
+	</EconomyConfiguration>
 
 	<GarageLayout>
 		<GarageFloor>

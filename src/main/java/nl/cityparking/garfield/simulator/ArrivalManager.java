@@ -31,7 +31,6 @@ public class ArrivalManager {
 		arrivals = new ArrayList<>();
 		index = 0;
 		nextArrival = 0;
-		int[] randomarray = {1, 2, 3, 4, 5, 6};
 
 		for (Agent agent: agents) {
 			if (agent.isEmployed()) {

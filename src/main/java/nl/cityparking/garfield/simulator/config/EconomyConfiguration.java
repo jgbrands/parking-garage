@@ -11,5 +11,5 @@ import java.util.ArrayList;
 public class EconomyConfiguration  {
 	@XmlElementWrapper(name = "Employers")
 	@XmlElement(name = "Employer")
-	ArrayList<EmployerConfiguration> employers = new ArrayList<>();
+	public ArrayList<EmployerConfiguration> employers = new ArrayList<>();
 }
