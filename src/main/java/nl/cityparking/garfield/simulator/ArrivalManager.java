@@ -1,12 +1,11 @@
 package nl.cityparking.garfield.simulator;
 
 import nl.cityparking.garfield.simulator.agent.Agent;
-import nl.cityparking.garfield.simulator.agent.Employment;
+import nl.cityparking.garfield.simulator.agent.Schedule;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -36,13 +35,13 @@ public class ArrivalManager {
 
 		for (Agent agent: agents) {
 			if (agent.isEmployed()) {
-				Employment employment = agent.getEmployment();
+				Schedule schedule = agent.getSchedule();
 				agent.updateWealth();
 
 				// For each work day, we want to add an arrival.
-				for (Employment.ScheduleEntry scheduleEntry : employment.getSchedule()) {
-					long adjustedArrivalMinute = scheduleEntry.getStartHour() * 60 - ThreadLocalRandom.current().nextLong(60);
-					long adjustedDepartureMinute = scheduleEntry.getEndHour() * 60 - ThreadLocalRandom.current().nextLong(30);
+				for (Schedule.Entry entry : schedule.getSchedule()) {
+					long adjustedArrivalMinute = entry.getStartHour() * 60 - ThreadLocalRandom.current().nextLong(60);
+					long adjustedDepartureMinute = entry.getEndHour() * 60 - ThreadLocalRandom.current().nextLong(30);
 					arrivals.add(new Arrival(adjustedArrivalMinute + startOfWeek, adjustedDepartureMinute + startOfWeek, agent));
 				}
 			}

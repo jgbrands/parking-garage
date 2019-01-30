@@ -61,15 +61,15 @@ public class AgentGenerator {
 		Agent agent = new Agent(firstName, lastName);
 
 		// Generate a 9-to-5, monday to friday job for our good agent.
-		Employment employment = new Employment();
+		Schedule schedule = new Schedule();
 
 		for (int i = 5; i >= 0; i--) {
-			employment.addWorkingHours(new Employment.ScheduleEntry(
+			schedule.addWorkingHours(new Schedule.Entry(
 					ThreadLocalRandom.current().nextInt(7, 13) + i*24,
 					ThreadLocalRandom.current().nextInt(17, 21) + i*24));
 		}
 
-		agent.setEmployment(employment);
+		agent.setSchedule(schedule);
 
 		return agent;
 	}

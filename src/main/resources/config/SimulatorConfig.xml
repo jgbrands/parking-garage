@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configuration>
-	<spawnRatios>
-		<ratio weekdayIndex="0" base="0" factor="1" variance="2" peakMean="-0.8" peakStandardDeviation="1.4" />
-		<ratio weekdayIndex="1" base="0" factor="1" variance="2" peakMean="-0.8" peakStandardDeviation="1.4" />
-		<ratio weekdayIndex="2" base="0" factor="1" variance="2" peakMean="-0.8" peakStandardDeviation="1.4" />
-		<ratio weekdayIndex="3" base="0" factor="1" variance="2" peakMean="-0.8" peakStandardDeviation="1.4" />
-		<ratio weekdayIndex="4" base="0" factor="1" variance="2" peakMean="-0.8" peakStandardDeviation="1.4" />
-		<ratio weekdayIndex="5" base="0.5" factor="1.3" variance="2" peakMean="-0.8" peakStandardDeviation="1.55" />
-		<ratio weekdayIndex="6" base="0" factor="0.6" variance="1" peakMean="-0.8" peakStandardDeviation="1.25" />
-	</spawnRatios>
+	<Economy>
+		<Employers>
+			<Employer name="Dewey, Steel'em and Howe">
+				<Position name="Janitor" vacancies="10">
+					<WorkDay start="8" end="16" />
+					<WorkDay start="32" end="40" />
+				</Position>
+			</Employer>
+		</Employers>
+	</Economy>
 
 	<GarageLayout>
 		<Floors>
