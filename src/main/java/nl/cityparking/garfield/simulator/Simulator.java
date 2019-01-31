@@ -123,4 +123,16 @@ public class Simulator implements Runnable {
 	public EconomyManager getEconomyManager() {
 		return economyManager;
 	}
+	
+	public Configuration getConfiguration() {
+		return configuration;
+	}
+	
+	public AgentManager getAgentManager() {
+		return agentManager;
+	}
+	
+	public ArrivalManager getArrivalManager() {
+		return arrivalManager;
+	}
 }

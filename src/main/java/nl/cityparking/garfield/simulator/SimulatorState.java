@@ -4,6 +4,7 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import nl.cityparking.garfield.simulator.agent.Agent;
 import nl.cityparking.garfield.simulator.economy.Report;
 
 public class SimulatorState {
@@ -11,6 +12,7 @@ public class SimulatorState {
 	private LongProperty carsTotalIn = new SimpleLongProperty();
 	private LongProperty carsTotalOut = new SimpleLongProperty();
 	private ObservableList<Report> reports = FXCollections.observableArrayList();
+	private ObservableList<Agent> agents = FXCollections.observableArrayList();
 
 	public long getSimulatorMinutes() {
 		return simulatorMinutes.get();
@@ -50,5 +52,13 @@ public class SimulatorState {
 
 	public ObservableList<Report> getReports() {
 		return reports;
+	}
+	
+	public ObservableList<Agent> getAgents() {
+		return agents;
+	}
+	
+	public void setAgents(ObservableList<Agent> agents) {
+		this.agents = agents;
 	}
 }

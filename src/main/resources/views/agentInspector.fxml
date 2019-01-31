@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="nl.cityparking.garfield.gui.AgentInspector">
+	<Label text="Name:"/>
+	<Label text="AgentName" GridPane.columnIndex="1" fx:id="agentNameLabel" />
+
+	<Label text="Employment:" GridPane.rowIndex="1" />
+	<Label text="AgentEmployment" GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="agentEmploymentLabel" />
+
+	<Label text="Wealth:" GridPane.rowIndex="2" />
+	<Label text="AgentWealth" GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="agentWealthLabel" />
+
+	<properties>
+
+	</properties>
+</GridPane>

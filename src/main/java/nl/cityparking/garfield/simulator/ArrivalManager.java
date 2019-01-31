@@ -35,7 +35,6 @@ public class ArrivalManager {
 		for (Agent agent: agents) {
 			if (agent.isEmployed()) {
 				Schedule schedule = agent.getSchedule();
-				agent.updateWealth();
 
 				// For each work day, we want to add an arrival.
 				for (Schedule.Entry entry : schedule.getSchedule()) {

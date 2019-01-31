@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import nl.cityparking.garfield.gui.AgentOverview;
 import nl.cityparking.garfield.gui.PrimaryView;
 import nl.cityparking.garfield.gui.simulator.GarageView;
 import nl.cityparking.garfield.gui.EconomicViewController;
@@ -15,13 +16,18 @@ import nl.cityparking.garfield.gui.simulator.SimulatorControls;
 import nl.cityparking.garfield.simulator.Simulator;
 import nl.cityparking.garfield.simulator.SimulatorService;
 import nl.cityparking.garfield.simulator.SimulatorState;
+import nl.cityparking.garfield.simulator.agent.Agent;
 import nl.cityparking.garfield.simulator.config.Configuration;
 import nl.cityparking.garfield.simulator.parking.ParkingFloor;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.net.URL;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ParkingGarage extends Application {
 	private Simulator simulator;
@@ -29,6 +35,7 @@ public class ParkingGarage extends Application {
 	private SimulatorService service;
 	private GarageView garageView = null;
 	private EconomicViewController economicViewController = null;
+	private AgentOverview agentOverview = null;
 
 	private PrimaryView primaryViewController;
 	private Pane primaryView;
@@ -87,7 +94,6 @@ public class ParkingGarage extends Application {
 				e.printStackTrace();
 			}
 
-
 			try {
 				FXMLLoader loader = this.createLoader("/views/economicView.fxml");
 				Pane view = loader.load();
@@ -97,8 +103,17 @@ public class ParkingGarage extends Application {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-
+			
+			try {
+				FXMLLoader loader = this.createLoader("/views/agentOverview.fxml");
+				Pane view = loader.load();
+				agentOverview = loader.getController();
+				agentOverview.setAgents(state.getAgents());
+				primaryViewController.addMainViewTab(view, "Agents");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			try {
 				FXMLLoader loader = this.createLoader("/views/simulatorControls.fxml");
 				SimulatorControls simulatorControlsController = new SimulatorControls(this.state);
@@ -120,6 +135,13 @@ public class ParkingGarage extends Application {
 		state.setSimulatorMinutes(simulator.getSimulationTime().getMinutesPassed());
 		state.setCarsTotalIn(simulator.getCarsIn());
 		state.setCarsTotalOut(simulator.getCarsOut());
+		
+		// Generate a list of differences:
+		Collection<Agent> newAgents = simulator.getAgentManager().getAgents().stream()
+				.filter(Predicate.not(new HashSet<>(state.getAgents())::contains))
+				.collect(Collectors.toList());
+		state.getAgents().addAll(newAgents);
+		
 		garageView.update();
 	}
 
