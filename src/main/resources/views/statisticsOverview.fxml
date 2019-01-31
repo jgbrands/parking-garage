@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.chart.PieChart?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="nl.cityparking.garfield.gui.StatisticsOverview">
+	<GridPane AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0">
+		<rowConstraints>
+			<RowConstraints vgrow="ALWAYS" />
+		</rowConstraints>
+		<columnConstraints>
+			<ColumnConstraints hgrow="ALWAYS" />
+			<ColumnConstraints hgrow="ALWAYS" />
+		</columnConstraints>
+
+		<PieChart fx:id="statisticsChart" />
+		<GridPane GridPane.columnIndex="1">
+			<Label text="Free spots:" />
+			<Label text="FreeSpotsAmount" fx:id="freeSpotsLabel"
+			       GridPane.columnIndex="1" />
+			<Label text="Open parking:" GridPane.rowIndex="1" />
+			<Label text="OpenParkingAmount" fx:id="openParkingLabel"
+			       GridPane.rowIndex="1" GridPane.columnIndex="1" />
+			<Label text="Pass parking:" GridPane.rowIndex="2" />
+			<Label text="PassParkingAmount" fx:id="passParkingLabel"
+			       GridPane.rowIndex="2" GridPane.columnIndex="1" />
+			<Label text="Disabled parking:" GridPane.rowIndex="3" />
+			<Label text="DisabledParkingAmount" fx:id="disabledParkingLabel"
+			       GridPane.rowIndex="3" GridPane.columnIndex="1" />
+		</GridPane>
+	</GridPane>
+</AnchorPane>

@@ -39,6 +39,12 @@ public class ParkingFloor {
 	 *
 	 * @return The amount of empty spaces across all lots.
 	 */
+	public long getFreeSpots() {
+		return parkingLots.stream()
+				.mapToLong(lot -> lot.getSize() - lot.getOccupants())
+				.sum();
+	}
+	
 	public long getFreeSpots(ParkingSpaceType type) {
 		return parkingLots.stream()
 				.mapToLong(lot -> lot.getAmountOfFreeSpaces(type))
@@ -47,5 +53,11 @@ public class ParkingFloor {
 
 	public void addLot(ParkingLot lot) {
 		parkingLots.add(lot);
+	}
+	
+	public long getOccupiedSpots(ParkingSpaceType type) {
+		return parkingLots.stream()
+				.mapToLong(lot -> lot.getAmountOfOccupants(type))
+				.sum();
 	}
 }

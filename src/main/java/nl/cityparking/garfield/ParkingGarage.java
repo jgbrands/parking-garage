@@ -10,18 +10,20 @@ import javafx.util.Duration;
 
 import nl.cityparking.garfield.gui.AgentOverview;
 import nl.cityparking.garfield.gui.PrimaryView;
+import nl.cityparking.garfield.gui.StatisticsOverview;
 import nl.cityparking.garfield.gui.simulator.GarageView;
 import nl.cityparking.garfield.gui.EconomicViewController;
 import nl.cityparking.garfield.gui.simulator.SimulatorControls;
 import nl.cityparking.garfield.simulator.Simulator;
 import nl.cityparking.garfield.simulator.SimulatorService;
-import nl.cityparking.garfield.simulator.SimulatorState;
 import nl.cityparking.garfield.simulator.agent.Agent;
 import nl.cityparking.garfield.simulator.config.Configuration;
 import nl.cityparking.garfield.simulator.parking.ParkingFloor;
+import nl.cityparking.garfield.simulator.parking.ParkingSpaceType;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
@@ -31,12 +33,9 @@ import java.util.stream.Collectors;
 
 public class ParkingGarage extends Application {
 	private Simulator simulator;
-	private SimulatorState state = new SimulatorState();
-	private SimulatorService service;
+	private State state = new State();
 	private GarageView garageView = null;
-	private EconomicViewController economicViewController = null;
-	private AgentOverview agentOverview = null;
-
+	
 	private PrimaryView primaryViewController;
 	private Pane primaryView;
 
@@ -62,8 +61,8 @@ public class ParkingGarage extends Application {
 		simulatorThread.start();
 
 		// Start our simulator service, too.
-		this.service = new SimulatorService(simulator);
-		service.setPeriod(Duration.millis(10));
+		SimulatorService service = new SimulatorService(simulator);
+		service.setPeriod(Duration.millis(1000.0 / 30.0));
 		service.setOnSucceeded(this::updateSimulatorState);
 		service.start();
 
@@ -97,7 +96,7 @@ public class ParkingGarage extends Application {
 			try {
 				FXMLLoader loader = this.createLoader("/views/economicView.fxml");
 				Pane view = loader.load();
-				economicViewController = loader.getController();
+				EconomicViewController economicViewController = loader.getController();
 				this.primaryViewController.addMainViewTab(view, "Economy");
 				economicViewController.setData(state.getReports());
 			} catch (Exception e) {
@@ -107,10 +106,23 @@ public class ParkingGarage extends Application {
 			try {
 				FXMLLoader loader = this.createLoader("/views/agentOverview.fxml");
 				Pane view = loader.load();
-				agentOverview = loader.getController();
+				AgentOverview agentOverview = loader.getController();
 				agentOverview.setAgents(state.getAgents());
 				primaryViewController.addMainViewTab(view, "Agents");
 			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				FXMLLoader loader = this.createLoader("/views/statisticsOverview.fxml");
+				Pane view = loader.load();
+				StatisticsOverview statisticsOverview = loader.getController();
+				statisticsOverview.freeSpacesProperty().bind(state.openSpacesProperty());
+				statisticsOverview.openParkersProperty().bind(state.openParkersProperty());
+				statisticsOverview.passParkersProperty().bind(state.passParkersProperty());
+				statisticsOverview.disabledParkersProperty().bind(state.disabledParkersProperty());
+				primaryViewController.addMainViewTab(view, "Statistics");
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
@@ -135,6 +147,10 @@ public class ParkingGarage extends Application {
 		state.setSimulatorMinutes(simulator.getSimulationTime().getMinutesPassed());
 		state.setCarsTotalIn(simulator.getCarsIn());
 		state.setCarsTotalOut(simulator.getCarsOut());
+		state.setOpenSpaces(simulator.getParkingManager().getFreeSpaces());
+		state.setOpenParkers(simulator.getParkingManager().getOccupation(ParkingSpaceType.OPEN));
+		state.setPassParkers(simulator.getParkingManager().getOccupation(ParkingSpaceType.PASS_HOLDER_ONLY));
+		state.setDisabledParkers(simulator.getParkingManager().getOccupation(ParkingSpaceType.DISABLED_ONLY));
 		
 		// Generate a list of differences:
 		Collection<Agent> newAgents = simulator.getAgentManager().getAgents().stream()

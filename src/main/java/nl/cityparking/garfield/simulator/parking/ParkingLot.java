@@ -113,12 +113,21 @@ public class ParkingLot {
 		return spaces.size();
 	}
 
+	public long getAmountOfSpaces(ParkingSpaceType type) {
+		return spaces.parallelStream()
+				.filter(s -> s.getSpaceType() == type)
+				.count();
+	}
+	
 	/**
 	 * Gets the amount of ParkingSpaces that are occupied within this ParkingLot
 	 * @return The amount of occupied spaces.
 	 */
-	public int getAmountOfOccupants() {
-		return spaces.size() - freeOpenSpaces.size();
+	public long getAmountOfOccupants(ParkingSpaceType type) {
+		return spaces.parallelStream()
+				.filter(s -> s.getSpaceType() == type)
+				.filter(ParkingSpace::isOccupied)
+				.count();
 	}
 
 	/**
@@ -187,5 +196,11 @@ public class ParkingLot {
 					break;
 			}
 		}
+	}
+	
+	public long getOccupants() {
+		return spaces.parallelStream()
+				.filter(ParkingSpace::isOccupied)
+				.count();
 	}
 }

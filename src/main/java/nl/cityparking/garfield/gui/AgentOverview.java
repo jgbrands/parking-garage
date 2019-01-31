@@ -2,7 +2,6 @@ package nl.cityparking.garfield.gui;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.GridPane;
 
 import nl.cityparking.garfield.simulator.agent.Agent;
 
@@ -66,7 +64,7 @@ public class AgentOverview {
 	
 	public void setAgents(ObservableList<Agent> agents) {
 		agentsTableView.setItems(agents);
-}
+	}
 	
 	public AgentInspector getAgentInspector() {
 		return agentInspector;

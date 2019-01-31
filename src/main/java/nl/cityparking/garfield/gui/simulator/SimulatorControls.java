@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
-import nl.cityparking.garfield.simulator.SimulatorState;
+import nl.cityparking.garfield.State;
 import nl.cityparking.garfield.simulator.SimulatorTime;
 
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
 public class SimulatorControls {
-	private SimulatorState state;
+	private State state;
 	private LongProperty simulatorSpeedValue = new SimpleLongProperty();
 
 	@FXML
@@ -32,7 +32,7 @@ public class SimulatorControls {
 	@FXML
 	private Label carsOutLabel;
 
-	public SimulatorControls(SimulatorState state) {
+	public SimulatorControls(State state) {
 		this.state = state;
 	}
 

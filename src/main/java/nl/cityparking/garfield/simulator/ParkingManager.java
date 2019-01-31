@@ -89,7 +89,7 @@ public class ParkingManager {
 
 		for (ParkingFloor floor: floors) {
 			for (ParkingLot lot: floor.getParkingLots()) {
-				if (lot.getAmountOfOccupants() == 0) {
+				if (lot.getOccupants() == 0) {
 					continue;
 				}
 
@@ -122,7 +122,19 @@ public class ParkingManager {
 	public void setThreading(boolean threading) {
 		useThreading = true;
 	}
-
+	
+	public long getOccupation(ParkingSpaceType type) {
+		return floors.parallelStream()
+				.mapToLong(f -> f.getOccupiedSpots(type))
+				.sum();
+	}
+	
+	public long getFreeSpaces() {
+		return floors.parallelStream()
+				.mapToLong(ParkingFloor::getFreeSpots)
+				.sum();
+	}
+	
 	/**
 	 * FindLeaversTask is a work dividing task, that creates WorkerTasks for each parking lot on every single floor.
 	 *
@@ -155,7 +167,7 @@ public class ParkingManager {
 			// Create a task for each lot!
 			for (ParkingFloor floor: floors) {
 				for (ParkingLot lot: floor.getParkingLots()) {
-					if (lot.getAmountOfOccupants() == 0) {
+					if (lot.getOccupants() == 0) {
 						continue;
 					}
 
