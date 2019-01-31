@@ -84,23 +84,19 @@ public class EconomicViewController {
 		income.setCellValueFactory(new PropertyValueFactory<>("income"));
 		expense.setCellValueFactory(new PropertyValueFactory<>("expenses"));
 		date.setCellValueFactory(new PropertyValueFactory<>("date"));
-		incomePassHolders.setCellValueFactory(new PropertyValueFactory<>("incomePassHolders"));
-		incomeReservations.setCellValueFactory(new PropertyValueFactory<>("incomeReservations"));
 
 		incomeSeries.setName("Income");
 		expensesSeries.setName("Expenses");
 		totalSeries.setName("Total");
-		incomePassHoldersSeries.setName("income pass holders");
-		incomeReservationsSeries.setName("Income reservations");
+		incomePassHoldersSeries.setName("Pass Holders");
+		incomeReservationsSeries.setName("Reservations");
 
 		incomeChart.getData().add(incomeSeries);
-		incomeChart.getData().add(expensesSeries);
-		incomeChart.getData().add(totalSeries);
 		incomeChart.getData().add(incomePassHoldersSeries);
 		incomeChart.getData().add(incomeReservationsSeries);
-
-
-
+		incomeChart.getData().add(expensesSeries);
+		incomeChart.getData().add(totalSeries);
+		
 		try {
 			URL resource = this.getClass().getResource("/views/setSettingsView.fxml");
 			FXMLLoader loader = new FXMLLoader(resource);
