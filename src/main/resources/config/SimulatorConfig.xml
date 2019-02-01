@@ -29,7 +29,7 @@
 				</Position>
 			</Employer>
 			<Employer name="Local Restaurant">
-				<Position name="Chef" vacancies="5">
+				<Position name="Chef" vacancies="10">
 					<WorkDay day="2" start="16" end="22" />
 					<WorkDay day="3" start="16" end="22" />
 					<WorkDay day="4" start="16" end="22" />
@@ -45,16 +45,25 @@
 					<WorkDay day="6" start="10" end="22" />
 					<WorkDay day="7" start="17" end="22" />
 				</Position>
+				<Position name="Entertainer" vacancies="5">
+					<WorkDay day="2" start="18" end="22" />
+					<WorkDay day="3" start="18" end="22" />
+					<WorkDay day="4" start="18" end="22" />
+					<WorkDay day="5" start="18" end="22" />
+					<WorkDay day="6" start="18" end="22" />
+					<WorkDay day="7" start="18" end="22" />
+				</Position>
+
 			</Employer>
-			<Employer name="BENK">
-				<Position name="Benker" vacancies="20">
+			<Employer name="Bank">
+				<Position name="Banker" vacancies="20">
 					<WorkDay start="9" end="17" />
 					<WorkDay start="9" end="17" />
 					<WorkDay start="9" end="17" />
 					<WorkDay start="9" end="17" />
 					<WorkDay start="9" end="17" />
 				</Position>
-				<Position name="High Benker" vacancies="3">
+				<Position name="High Banker" vacancies="5">
 					<WorkDay start="8" end="17" />
 					<WorkDay start="8" end="17" />
 					<WorkDay start="8" end="17" />
@@ -64,7 +73,7 @@
 				</Position>
 			</Employer>
 			<Employer name="City Hall">
-				<Position name="Councillor" vacancies="20">
+				<Position name="Councillor" vacancies="60">
 					<WorkDay start="10" end="20" />
 					<WorkDay start="10" end="20" />
 					<WorkDay start="10" end="20" />
@@ -80,7 +89,7 @@
 				</Position>
 			</Employer>
 			<Employer name="UMCG Hospital">
-				<Position name="Hospital Worker" vacancies="30">
+				<Position name="Hospital Worker" vacancies="60">
 					<WorkDay start="8" end="17" />
 					<WorkDay start="8" end="17" />
 					<WorkDay start="10" end="15" />
@@ -90,7 +99,7 @@
 				</Position>
 			</Employer>
 			<Employer name="ADYO Administration">
-				<Position name="Administration Worker" vacancies="20">
+				<Position name="Administration Worker" vacancies="35">
 					<WorkDay start="9" end="17" />
 					<WorkDay start="9" end="17" />
 					<WorkDay start="9" end="17" />
@@ -104,11 +113,22 @@
 					<WorkDay day="6" start="17" end="28" />
 					<WorkDay day="7" start="10" end="20" />
 				</Position>
-				<Position name="General Worker" vacancies="20" >
+				<Position name="General Worker" vacancies="40" >
 					<WorkDay day="1" start="8" end="15" />
 					<WorkDay day="5" start="16" end="24" />
 					<WorkDay day="6" start="16" end="29" />
 					<WorkDay day="7" start="9" end="18" />
+				</Position>
+			</Employer>
+			<Employer name="Unemployed">
+				<Position name="Shopper" vacancies="75">
+					<WorkDay start="15" end="19" />
+					<WorkDay start="15" end="22" />
+					<WorkDay start="15" end="22" />
+					<WorkDay start="12" end="23" />
+					<WorkDay start="17" end="23" />
+					<WorkDay start="10" end="27" />
+					<WorkDay start="12" end="18" />
 				</Position>
 			</Employer>
 		</Employers>

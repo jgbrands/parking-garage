@@ -65,7 +65,6 @@ public class EconomicViewController {
 		TableColumn<Report, Number> income = new TableColumn<>("Income");
 		TableColumn<Report, Number> incomePassHolders = new TableColumn<>("IncomePassHolders");
 		TableColumn<Report, Number> incomeReservations = new TableColumn<>("IncomeReservations");
-		SetSettingsViewController gridpaneFilment = new SetSettingsViewController();
 
 		overView.getColumns().add(date);
 		overView.getColumns().add(expense);

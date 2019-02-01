@@ -16,7 +16,7 @@ public class Report {
 	}
 
 	public void close(long currenTime) {
-		this.expenses = ThreadLocalRandom.current().nextLong(4000, 6000);
+		this.expenses = ThreadLocalRandom.current().nextLong(1000, 4000);
 
 		endTime = currenTime;
 		finalized = true;
