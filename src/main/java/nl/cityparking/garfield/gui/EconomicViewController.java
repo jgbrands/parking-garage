@@ -96,17 +96,6 @@ public class EconomicViewController {
 		incomeChart.getData().add(incomeReservationsSeries);
 		incomeChart.getData().add(expensesSeries);
 		incomeChart.getData().add(totalSeries);
-		
-		try {
-			URL resource = this.getClass().getResource("/views/setSettingsView.fxml");
-			FXMLLoader loader = new FXMLLoader(resource);
-			Pane setSettingsView = loader.load();
-			SetSettingsViewController controller = loader.getController();
-			staticView.add(setSettingsView, 1, 1);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**

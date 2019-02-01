@@ -4,29 +4,22 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<GridPane minHeight="150.0" minWidth="150.0" prefHeight="325.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.cityparking.garfield.gui.EconomicViewController">
-  <columnConstraints>
-    <ColumnConstraints minWidth="150.0" percentWidth="70.0" />
-    <ColumnConstraints minWidth="150.0" percentWidth="30.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints percentHeight="70.0" vgrow="ALWAYS" />
-      <RowConstraints percentHeight="30.0" vgrow="ALWAYS" />
-  </rowConstraints>
-   <children>
-      <LineChart fx:id="incomeChart">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </LineChart>
-      <TableView fx:id="overView" GridPane.rowIndex="1"> </TableView>
-      <GridPane fx:id="staticView" prefHeight="74.0" prefWidth="167.0" GridPane.columnIndex="1"> </GridPane>
-   </children>
-</GridPane>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="nl.cityparking.garfield.gui.EconomicViewController">
+    <SplitPane orientation="VERTICAL"
+               AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        <LineChart fx:id="incomeChart">
+          <xAxis>
+              <CategoryAxis side="BOTTOM"/>
+          </xAxis>
+          <yAxis>
+              <NumberAxis side="LEFT"/>
+          </yAxis>
+        </LineChart>
+        <TableView fx:id="overView" GridPane.columnIndex="1"/>
+    </SplitPane>
+</AnchorPane>

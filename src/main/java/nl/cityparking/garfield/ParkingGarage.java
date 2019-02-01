@@ -77,7 +77,7 @@ public class ParkingGarage extends Application {
 		}
 
 		if (this.primaryView != null) {
-			Scene scene = new Scene(this.primaryView, 0, 0);
+			Scene scene = new Scene(this.primaryView, 1280, 720);
 			stage.setScene(scene);
 			scene.getStylesheets().add(getClass().getResource("/style/style.css").toExternalForm());
 
