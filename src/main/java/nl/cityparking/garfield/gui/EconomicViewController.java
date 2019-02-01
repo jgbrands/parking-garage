@@ -65,7 +65,6 @@ public class EconomicViewController {
 		TableColumn<Report, Number> income = new TableColumn<>("Income");
 		TableColumn<Report, Number> incomePassHolders = new TableColumn<>("IncomePassHolders");
 		TableColumn<Report, Number> incomeReservations = new TableColumn<>("IncomeReservations");
-		SetSettingsViewController gridpaneFilment = new SetSettingsViewController();
 
 		overView.getColumns().add(date);
 		overView.getColumns().add(expense);
@@ -96,17 +95,6 @@ public class EconomicViewController {
 		incomeChart.getData().add(incomeReservationsSeries);
 		incomeChart.getData().add(expensesSeries);
 		incomeChart.getData().add(totalSeries);
-		
-		try {
-			URL resource = this.getClass().getResource("/views/setSettingsView.fxml");
-			FXMLLoader loader = new FXMLLoader(resource);
-			Pane setSettingsView = loader.load();
-			SetSettingsViewController controller = loader.getController();
-			staticView.add(setSettingsView, 1, 1);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
