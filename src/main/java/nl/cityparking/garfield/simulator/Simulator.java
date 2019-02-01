@@ -27,7 +27,6 @@ public class Simulator implements Runnable {
     private boolean stopping = false;
     private long carsIn = 0;
     private long carsOut = 0;
-    private long queueSize = 0;
 
 	/**
 	 * Initializes the Simulator and prepares it for runtime.
@@ -134,5 +133,9 @@ public class Simulator implements Runnable {
 	
 	public ArrivalManager getArrivalManager() {
 		return arrivalManager;
+	}
+	
+	public CarQueue getCarQueue() {
+		return carQueue;
 	}
 }

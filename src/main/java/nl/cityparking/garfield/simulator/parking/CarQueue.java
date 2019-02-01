@@ -7,11 +7,11 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class CarQueue {
-	private static final int MAX_QUEUE_LENGTH = 50;
+	private int maxSize = 50;
 	private LinkedList<Arrival> carQueue = new LinkedList<>();
 
 	public void addToQueue(Arrival arrival) {
-		if (carQueue.size() < MAX_QUEUE_LENGTH) {
+		if (carQueue.size() < maxSize) {
 			carQueue.add(arrival);
 		}
 	}
@@ -28,5 +28,17 @@ public class CarQueue {
 		}
 		
 		return arrivals;
+	}
+	
+	public Collection<Arrival> get() {
+		return carQueue;
+	}
+	
+	public int getMaxSize() {
+		return maxSize;
+	}
+	
+	public void setMaxSize(int maxSize) {
+		this.maxSize = maxSize;
 	}
 }

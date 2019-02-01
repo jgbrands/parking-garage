@@ -6,6 +6,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import nl.cityparking.garfield.gui.QueueView;
 import nl.cityparking.garfield.simulator.parking.ParkingFloor;
 import nl.cityparking.garfield.simulator.parking.ParkingLot;
 
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GarageView {
+	@FXML
+	public QueueView firstQueue;
+	
 	@FXML
 	private GridPane floorGrid;
 
@@ -70,5 +74,7 @@ public class GarageView {
 		for (ParkingLotController controller: controllers) {
 			controller.updateCanvas();
 		}
+		
+		firstQueue.update();
 	}
 }

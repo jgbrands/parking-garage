@@ -6,10 +6,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.canvas.Canvas?>
+<?import nl.cityparking.garfield.gui.QueueView?>
 <GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="nl.cityparking.garfield.gui.simulator.GarageView" fx:id="floorGrid"
-            prefHeight="400.0" prefWidth="600.0">
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="nl.cityparking.garfield.gui.simulator.GarageView"
+          prefHeight="400.0" prefWidth="600.0">
+	<columnConstraints>
+		<ColumnConstraints minWidth="60" hgrow="SOMETIMES" halignment="CENTER" />
+		<ColumnConstraints hgrow="ALWAYS" halignment="CENTER" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints vgrow="ALWAYS" valignment="CENTER" />
+	</rowConstraints>
 
+	<QueueView fx:id="firstQueue" width="40" height="400" elementHeight="10" />
+	<GridPane GridPane.columnIndex="1" fx:id="floorGrid" />
 </GridPane>
 

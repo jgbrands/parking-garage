@@ -87,7 +87,7 @@ public class ParkingGarage extends Application {
 				Pane view = loader.load();
 				garageView = loader.getController();
 				garageView.setFloors((List<ParkingFloor>) simulator.getParkingManager().getFloors());
-
+				garageView.firstQueue.setQueue(simulator.getCarQueue());
 				this.primaryViewController.addMainViewTab(view, "Garage");
 			} catch (Exception e) {
 				e.printStackTrace();
