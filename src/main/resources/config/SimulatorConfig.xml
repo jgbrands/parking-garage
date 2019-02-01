@@ -3,7 +3,7 @@
 	<EconomyConfiguration>
 		<Employers>
 			<Employer name="Dewey, Steel'em and Howe">
-				<Position name="Janitor" vacancies="5">
+				<Position name="Janitor" vacancies="10">
 					<WorkDay start="18" end="26" />
 					<WorkDay start="18" end="26" />
 					<WorkDay start="18" end="26" />

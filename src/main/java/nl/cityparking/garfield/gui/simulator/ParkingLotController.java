@@ -72,34 +72,32 @@ public class ParkingLotController {
 		for (ParkingSpace space : parkingLot.getSpaces()) {
 			switch (space.getSpaceType()) {
 				case OPEN:
-					gc.setFill(paintOpenSpot);
+					gc.setFill(Color.LIGHTGREEN);
 					break;
-
+				
 				case PASS_HOLDER_ONLY:
-					gc.setFill(paintPassHolderSpot);
+					gc.setFill(Color.PINK);
 					break;
-
+				
 				case DISABLED_ONLY:
-					gc.setFill(paintDisabledSpot);
+					gc.setFill(Color.LIGHTBLUE);
 					break;
 			}
-
+			
 			if (space.isOccupied()) {
-				
 				switch (space.getSpaceType()) {
 					case OPEN:
-						gc.setFill(Color.LIGHTGREEN);
+						gc.setFill(paintOpenSpot);
 						break;
 					
 					case PASS_HOLDER_ONLY:
-						gc.setFill(Color.PINK);
+						gc.setFill(paintPassHolderSpot);
 						break;
 					
 					case DISABLED_ONLY:
-						gc.setFill(Color.LIGHTBLUE);
+						gc.setFill(paintDisabledSpot);
 						break;
 				}
-				
 			}
 
 			gc.fillRect(width * x + 0.5, (height + padding) * y + 0.5, width, height);
