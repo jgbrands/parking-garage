@@ -121,7 +121,7 @@
 				</Position>
 			</Employer>
 			<Employer name="Unemployed">
-				<Position name="Shopper" vacancies="75">
+				<Position name="Shopper" vacancies="275">
 					<WorkDay start="15" end="19" />
 					<WorkDay start="15" end="22" />
 					<WorkDay start="15" end="22" />

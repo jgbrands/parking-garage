@@ -25,6 +25,7 @@ public class Agent {
 	private ObjectProperty<Employment> employment = new SimpleObjectProperty<>(null);
 	private LongProperty wealth = new SimpleLongProperty( 500);
 	private ObjectProperty<ParkingPass> parkingPass = new SimpleObjectProperty<>( null);
+	private BooleanProperty disabledParker = new SimpleBooleanProperty(false);
 
 	/**
 	 * Initializes a new Agent
@@ -92,6 +93,18 @@ public class Agent {
 	
 	public void setParkingPass(ParkingPass parkingPass) {
 		this.parkingPass.set(parkingPass);
+	}
+	
+	public boolean isDisabledParker() {
+		return disabledParker.get();
+	}
+	
+	public BooleanProperty disabledParkerProperty() {
+		return disabledParker;
+	}
+	
+	public void setDisabledParker(boolean disabledParker) {
+		this.disabledParker.set(disabledParker);
 	}
 	
 	/**

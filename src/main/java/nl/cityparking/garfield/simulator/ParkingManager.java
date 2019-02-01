@@ -57,17 +57,25 @@ public class ParkingManager {
 	public boolean handleArrival(Arrival arrival) {
 		ParkingSpaceType preferredType = ParkingSpaceType.OPEN;
 		
-		if (arrival.agent.hasParkingPass()) {
-			preferredType = ParkingSpaceType.PASS_HOLDER_ONLY;
+		if (arrival.agent.isDisabledParker() && parkArrival(arrival, ParkingSpaceType.DISABLED_ONLY)) {
+			return true;
 		}
 		
+		if (arrival.agent.hasParkingPass() && parkArrival(arrival, ParkingSpaceType.PASS_HOLDER_ONLY)) {
+			return true;
+		}
+		
+		return parkArrival(arrival, ParkingSpaceType.OPEN);
+	}
+	
+	private boolean parkArrival(Arrival arrival, ParkingSpaceType type) {
 		for (ParkingFloor floor: floors) {
-			if (floor.getFreeSpots(preferredType) > 0) {
-				floor.parkArrival(arrival, preferredType);
+			if (floor.getFreeSpots(type) > 0) {
+				floor.parkArrival(arrival, type);
 				return true;
 			}
 		}
-
+		
 		return false;
 	}
 

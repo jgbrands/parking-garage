@@ -5,6 +5,7 @@ import nl.cityparking.garfield.simulator.config.EmployerConfiguration;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 /**
@@ -23,7 +24,13 @@ public class AgentManager {
 	
 	public void generateAgents(int amount) {
 		for (int i = 0; i < amount; i++) {
-			agents.add(generator.generate());
+			Agent agent = generator.generate();
+			
+			if (ThreadLocalRandom.current().nextLong(0, 100) > 98) {
+				agent.setDisabledParker(true);
+			}
+			
+			agents.add(agent);
 		}
 	}
 
